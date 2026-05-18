@@ -21,6 +21,46 @@ This exporter scrape the metrics by independent modules (Scrapers). This modules
 
 
 
+## Supported Service Modules
+The exporter keeps one Scraper per module. Modules can be enabled or disabled in the `[modules]` section of `config.ini`.
+
+* Status
+* Hosts
+* HDFS
+* HBase
+* Hive
+* Impala
+* Kafka
+* Kudu
+* Spark
+* Yarn
+* Zookeeper
+* NiFi
+* Flink
+
+The modules use the Cloudera Manager API. Status and inventory data are read from the cluster, service and role endpoints, while detailed service metrics are read from `/timeseries` using tsquery.
+
+Some Cloudera Manager metric names vary by Cloudera Manager version, CDH/CDP release and installed parcels or CSDs. If a metric does not exist in a given installation, that metric is skipped and the remaining modules continue scraping. NiFi and Flink are treated as optional CSD/custom services; if they are absent, their modules do not fail the exporter.
+
+Example module flags:
+
+```ini
+[modules]
+global_status_module = true
+host_module = true
+hdfs_module = true
+impala_module = true
+hbase_module = true
+hive_module = true
+kafka_module = true
+kudu_module = true
+spark_module = true
+yarn_module = true
+zookeeper_module = true
+nifi_module = true
+flink_module = true
+```
+
 ## Building and Running
 To launch the exporter we recommend use a Docker container.  Whether it is inside a container or in the local system, some Golang packages are needed as dependencies of the code to be able to implement some Prometheus functions.
 

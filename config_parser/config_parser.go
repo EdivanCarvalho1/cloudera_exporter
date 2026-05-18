@@ -143,6 +143,46 @@ func parse_yarn_module_flag (config_reader *ini.File) bool {
   return yarn_module_flag
 }
 
+func parse_hbase_module_flag (config_reader *ini.File) bool {
+  hbase_module_flag := config_reader.Section("modules").Key("hbase_module").MustBool(false)
+  return hbase_module_flag
+}
+
+func parse_hive_module_flag (config_reader *ini.File) bool {
+  hive_module_flag := config_reader.Section("modules").Key("hive_module").MustBool(false)
+  return hive_module_flag
+}
+
+func parse_kafka_module_flag (config_reader *ini.File) bool {
+  kafka_module_flag := config_reader.Section("modules").Key("kafka_module").MustBool(false)
+  return kafka_module_flag
+}
+
+func parse_kudu_module_flag (config_reader *ini.File) bool {
+  kudu_module_flag := config_reader.Section("modules").Key("kudu_module").MustBool(false)
+  return kudu_module_flag
+}
+
+func parse_spark_module_flag (config_reader *ini.File) bool {
+  spark_module_flag := config_reader.Section("modules").Key("spark_module").MustBool(false)
+  return spark_module_flag
+}
+
+func parse_zookeeper_module_flag (config_reader *ini.File) bool {
+  zookeeper_module_flag := config_reader.Section("modules").Key("zookeeper_module").MustBool(false)
+  return zookeeper_module_flag
+}
+
+func parse_nifi_module_flag (config_reader *ini.File) bool {
+  nifi_module_flag := config_reader.Section("modules").Key("nifi_module").MustBool(false)
+  return nifi_module_flag
+}
+
+func parse_flink_module_flag (config_reader *ini.File) bool {
+  flink_module_flag := config_reader.Section("modules").Key("flink_module").MustBool(false)
+  return flink_module_flag
+}
+
 
 func parse_num_procs (config_reader *ini.File) (int, error) {
   num_procs := config_reader.Section("system").Key("num_procs").MustInt(0)
@@ -234,7 +274,15 @@ func Parse_config(config interface{}) (*CE_config, error) {
   host_module_flag := parse_host_module_flag (cfg)
   impala_module_flag := parse_impala_module_flag (cfg)
   hdfs_module_flag := parse_hdfs_module_flag (cfg)
+  hbase_module_flag := parse_hbase_module_flag (cfg)
+  hive_module_flag := parse_hive_module_flag (cfg)
+  kafka_module_flag := parse_kafka_module_flag (cfg)
+  kudu_module_flag := parse_kudu_module_flag (cfg)
+  spark_module_flag := parse_spark_module_flag (cfg)
   yarn_module_flag := parse_yarn_module_flag (cfg)
+  zookeeper_module_flag := parse_zookeeper_module_flag (cfg)
+  nifi_module_flag := parse_nifi_module_flag (cfg)
+  flink_module_flag := parse_flink_module_flag (cfg)
 
 
   // System parameters
@@ -275,7 +323,15 @@ func Parse_config(config interface{}) (*CE_config, error) {
         cl.ScrapeHost{}: host_module_flag,
         cl.ScrapeImpalaMetrics{}: impala_module_flag,
         cl.ScrapeHDFS{}: hdfs_module_flag,
+        cl.ScrapeHBase{}: hbase_module_flag,
+        cl.ScrapeHive{}: hive_module_flag,
+        cl.ScrapeKafka{}: kafka_module_flag,
+        cl.ScrapeKudu{}: kudu_module_flag,
+        cl.ScrapeSpark{}: spark_module_flag,
         cl.ScrapeYARNMetrics{}: yarn_module_flag,
+        cl.ScrapeZookeeper{}: zookeeper_module_flag,
+        cl.ScrapeNiFi{}: nifi_module_flag,
+        cl.ScrapeFlink{}: flink_module_flag,
       },
     },
   deploy_ip,

@@ -2,61 +2,119 @@ package collector
 
 import (
 	"context"
-	//"fmt"
 
 	"github.com/prometheus/client_golang/prometheus"
 )
 
-// Metric descriptors.
-var (
-       myNewYARNMetric  = prometheus.NewDesc(
-                prometheus.BuildFQName(namespace, "subsystem", "metric_name"),
-                "This is my metrics description.",
-                []string{"label1","label2","label3"}, nil,)
-    )
+const YARN_SCRAPER_NAME = "yarn"
 
-// ScrapeGlobalStatus collects from /clusters/hosts.
+var yarnServiceTypes = []string{"YARN"}
+var yarnRoleTypes = []string{"RESOURCEMANAGER", "NODEMANAGER", "JOBHISTORY"}
+
+var yarnSpec = serviceScraperSpec{
+	Name:         YARN_SCRAPER_NAME,
+	Help:         "YARN service metrics",
+	ServiceTypes: yarnServiceTypes,
+	Metrics: appendCommonRoleMetrics([]serviceTimeseriesMetric{
+		{
+			Name:  "apps_running",
+			Help:  "YARN running applications.",
+			Query: serviceMetricQuery("apps_running", yarnServiceTypes),
+		},
+		{
+			Name:  "apps_pending",
+			Help:  "YARN pending applications.",
+			Query: serviceMetricQuery("apps_pending", yarnServiceTypes),
+		},
+		{
+			Name:  "apps_failed",
+			Help:  "YARN failed applications.",
+			Query: serviceMetricQuery("apps_failed", yarnServiceTypes),
+		},
+		{
+			Name:  "apps_killed",
+			Help:  "YARN killed applications.",
+			Query: serviceMetricQuery("apps_killed", yarnServiceTypes),
+		},
+		{
+			Name:  "containers_allocated",
+			Help:  "YARN allocated containers.",
+			Query: serviceMetricQuery("containers_allocated", yarnServiceTypes),
+		},
+		{
+			Name:  "containers_pending",
+			Help:  "YARN pending containers.",
+			Query: serviceMetricQuery("containers_pending", yarnServiceTypes),
+		},
+		{
+			Name:  "total_memory_mb",
+			Help:  "YARN total memory in MB.",
+			Query: serviceMetricQuery("total_memory_mb", yarnServiceTypes),
+		},
+		{
+			Name:  "allocated_memory_mb",
+			Help:  "YARN allocated memory in MB.",
+			Query: serviceMetricQuery("allocated_memory_mb", yarnServiceTypes),
+		},
+		{
+			Name:  "available_memory_mb",
+			Help:  "YARN available memory in MB.",
+			Query: serviceMetricQuery("available_memory_mb", yarnServiceTypes),
+		},
+		{
+			Name:  "total_vcores",
+			Help:  "YARN total vcores.",
+			Query: serviceMetricQuery("total_vcores", yarnServiceTypes),
+		},
+		{
+			Name:  "allocated_vcores",
+			Help:  "YARN allocated vcores.",
+			Query: serviceMetricQuery("allocated_vcores", yarnServiceTypes),
+		},
+		{
+			Name:  "available_vcores",
+			Help:  "YARN available vcores.",
+			Query: serviceMetricQuery("available_vcores", yarnServiceTypes),
+		},
+		{
+			Name:  "active_nodemanagers",
+			Help:  "YARN active NodeManagers.",
+			Query: serviceMetricQuery("active_nodemanagers", yarnServiceTypes),
+		},
+		{
+			Name:  "lost_nodemanagers",
+			Help:  "YARN lost NodeManagers.",
+			Query: serviceMetricQuery("lost_nodemanagers", yarnServiceTypes),
+		},
+		{
+			Name:  "unhealthy_nodemanagers",
+			Help:  "YARN unhealthy NodeManagers.",
+			Query: serviceMetricQuery("unhealthy_nodemanagers", yarnServiceTypes),
+		},
+		{
+			Name:  "jvm_heap_used_mb",
+			Help:  "YARN role JVM heap used in MB.",
+			Query: roleMetricQuery("jvm_heap_used_mb", yarnServiceTypes, yarnRoleTypes...),
+		},
+	}, yarnServiceTypes, yarnRoleTypes...),
+}
+
 type ScrapeYARNMetrics struct{}
 
-// Name of the Scraper. Should be unique.
 func (ScrapeYARNMetrics) Name() string {
-    return "YARN"
+	return YARN_SCRAPER_NAME
 }
 
-// Help describes the role of the Scraper.
 func (ScrapeYARNMetrics) Help() string {
-    return "Collect YARN Service Metrics"
+	return yarnSpec.Help
 }
 
-// Version.
 func (ScrapeYARNMetrics) Version() float64 {
-    return 1.0
+	return 1.0
 }
 
 func (ScrapeYARNMetrics) Scrape(ctx context.Context, config *Collector_connection_data, ch chan<- prometheus.Metric) error {
-
-    //user := config.User
-    //passwd := config.Passwd
-    //host := config.Host
-    //port := config.Port
-    //timeseries := config.Timeseries_api_version
-
-    ////Here I describe my metric. This example below is for impala metric with tsquery.
-    //urlStr := fmt.Sprintf("http://%s:%s/api/%s/timeseries?query=select+last(impala_query_admission_wait_rate)+where+entityName+rlike+\".*impala.*\"",host,port,timeseries)
-    //jsonTimeseries, _ := make_query(ctx, urlStr, user, passwd)
-    //number_metrics := gjson.Parse(string(jsonTimeseries)).Get("items.0.timeSeries.#").Int()
-    //for counter_metrics := 0; counter_metrics < int(number_metrics) ; counter_metrics++{
-    //    category := gjson.Parse(string(jsonTimeseries)).Get(fmt.Sprintf("items.0.timeSeries.%d.metadata.attributes.category", int(counter_metrics))).String()
-    //    entityName := gjson.Parse(string(jsonTimeseries)).Get(fmt.Sprintf("items.0.timeSeries.%d.metadata.attributes.entityName", int(counter_metrics))).String()
-    //    cluster := gjson.Parse(string(jsonTimeseries)).Get(fmt.Sprintf("items.0.timeSeries.%d.metadata.attributes.clusterDisplayName", int(counter_metrics))).String()
-    //    value := gjson.Parse(string(jsonTimeseries)).Get(fmt.Sprintf("items.0.timeSeries.%d.data.0.value", int(counter_metrics))).Float()
-    //    ch <- prometheus.MustNewConstMetric(myNewYARNMetric, prometheus.GaugeValue, value , category , entityName, cluster)
-    //}
-
-return nil
-
+	return scrapeServiceModule(ctx, *config, yarnSpec, ch)
 }
 
-
-// check interface
 var _ Scraper = ScrapeYARNMetrics{}

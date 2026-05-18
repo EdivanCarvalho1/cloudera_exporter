@@ -134,6 +134,204 @@ All the available metrics
 
 
 
+### Additional HDFS Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_hdfs_dfs_capacity_remaining | bytes | >= 5.8 | HDFS capacity remaining. | cluster, entityName |
+| kbdi_hdfs_missing_blocks | blocks | >= 5.8 | HDFS missing blocks compatibility alias. | cluster, entityName |
+| kbdi_hdfs_under_replicated_blocks | blocks | >= 5.8 | HDFS under replicated blocks compatibility alias. | cluster, entityName |
+| kbdi_hdfs_corrupt_blocks | blocks | >= 5.8 | HDFS corrupt blocks. | cluster, entityName |
+| kbdi_hdfs_namenode_jvm_heap_used_mb | MB | >= 5.8 | NameNode JVM heap used. | cluster, entityName |
+| kbdi_hdfs_datanode_jvm_heap_used_mb | MB | >= 5.8 | DataNode JVM heap used. | cluster, entityName |
+
+### Additional Impala Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_impala_num_queries | queries | >= 5.8 | Current number of Impala queries when exposed by CM. | cluster, entityName |
+| kbdi_impala_num_sessions | sessions | >= 5.8 | Current number of Impala sessions when exposed by CM. | cluster, entityName |
+| kbdi_impala_queries_spilled_rate | queries/s | >= 5.8 | Impala spilled query rate compatibility alias. | cluster, entityName |
+| kbdi_impala_queries_timeout_rate | queries/s | >= 5.8 | Impala timed out query rate compatibility alias. | cluster, entityName |
+| kbdi_impala_jvm_heap_used_mb | MB | >= 5.8 | JVM heap used by Impala roles. | cluster, entityName |
+
+### HBase Module Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_hbase_service_health | state | >= 5.8 | HBase service health. | cluster, service_name, service_type, service_state, health_summary |
+| kbdi_hbase_role_health | state | >= 5.8 | HBase role health. | cluster, service_name, service_type, role_name, role_type, hostname, role_state, health_summary |
+| kbdi_hbase_read_requests_rate | requests/s | version dependent | HBase read requests. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_write_requests_rate | requests/s | version dependent | HBase write requests. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_region_count | regions | version dependent | HBase region count. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_store_file_count | files | version dependent | HBase store file count. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_memstore_size | bytes | version dependent | HBase memstore size. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_compaction_queue_size | count | version dependent | HBase compaction queue size. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_flush_queue_size | count | version dependent | HBase flush queue size. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_read_latency | time | version dependent | HBase read latency. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_write_latency | time | version dependent | HBase write latency. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_jvm_heap_used_mb | MB | version dependent | HBase role JVM heap used. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_jvm_threads | threads | version dependent | HBase JVM threads. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_cpu_user_rate | seconds/s | version dependent | HBase role user CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_cpu_system_rate | seconds/s | version dependent | HBase role system CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_mem_rss | bytes | version dependent | HBase role resident memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hbase_mem_virtual | bytes | version dependent | HBase role virtual memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+
+### Hive Module Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_hive_service_health | state | >= 5.8 | Hive or Hive-on-Tez service health. | cluster, service_name, service_type, service_state, health_summary |
+| kbdi_hive_role_health | state | >= 5.8 | Hive role health. | cluster, service_name, service_type, role_name, role_type, hostname, role_state, health_summary |
+| kbdi_hive_open_connections | connections | version dependent | Hive open connections. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hive_open_sessions | sessions | version dependent | HiveServer2 open sessions. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hive_active_operations | operations | version dependent | Hive active operations. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hive_completed_operations | operations | version dependent | Hive completed operations. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hive_jvm_heap_used_mb | MB | version dependent | Hive role JVM heap used. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hive_jvm_threads | threads | version dependent | Hive JVM threads. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hive_cpu_user_rate | seconds/s | version dependent | Hive role user CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hive_cpu_system_rate | seconds/s | version dependent | Hive role system CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hive_mem_rss | bytes | version dependent | Hive role resident memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_hive_mem_virtual | bytes | version dependent | Hive role virtual memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+
+### Kafka Module Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_kafka_service_health | state | >= 5.8 | Kafka service health. | cluster, service_name, service_type, service_state, health_summary |
+| kbdi_kafka_role_health | state | >= 5.8 | Kafka broker health. | cluster, service_name, service_type, role_name, role_type, hostname, role_state, health_summary |
+| kbdi_kafka_bytes_in_rate | bytes/s | version dependent | Kafka bytes in. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_bytes_out_rate | bytes/s | version dependent | Kafka bytes out. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_messages_in_rate | messages/s | version dependent | Kafka messages in. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_under_replicated_partitions | partitions | version dependent | Kafka under replicated partitions. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_offline_partitions | partitions | version dependent | Kafka offline partitions. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_isr_shrinks_rate | events/s | version dependent | Kafka ISR shrinks. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_isr_expands_rate | events/s | version dependent | Kafka ISR expands. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_leader_election_rate | elections/s | version dependent | Kafka leader elections. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_request_handler_idle | percent | version dependent | Kafka request handler idle. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_network_processor_idle | percent | version dependent | Kafka network processor idle. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_jvm_heap_used_mb | MB | version dependent | Kafka JVM heap used. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_jvm_threads | threads | version dependent | Kafka JVM threads. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_cpu_user_rate | seconds/s | version dependent | Kafka role user CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_cpu_system_rate | seconds/s | version dependent | Kafka role system CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_mem_rss | bytes | version dependent | Kafka role resident memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kafka_mem_virtual | bytes | version dependent | Kafka role virtual memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+
+### Kudu Module Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_kudu_service_health | state | >= 5.8 | Kudu service health. | cluster, service_name, service_type, service_state, health_summary |
+| kbdi_kudu_role_health | state | >= 5.8 | Kudu role health. | cluster, service_name, service_type, role_name, role_type, hostname, role_state, health_summary |
+| kbdi_kudu_tablet_count | tablets | version dependent | Kudu tablet count. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_leader_tablet_count | tablets | version dependent | Kudu leader tablet count. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_replica_count | replicas | version dependent | Kudu replica count. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_write_ops_rate | ops/s | version dependent | Kudu write operations. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_read_ops_rate | ops/s | version dependent | Kudu read operations. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_write_latency | time | version dependent | Kudu write latency. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_read_latency | time | version dependent | Kudu read latency. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_rpc_queue_length | count | version dependent | Kudu RPC queue length. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_jvm_heap_used_mb | MB | version dependent | Kudu JVM heap used when exposed by CM. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_cpu_user_rate | seconds/s | version dependent | Kudu role user CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_cpu_system_rate | seconds/s | version dependent | Kudu role system CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_mem_rss | bytes | version dependent | Kudu role resident memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_kudu_mem_virtual | bytes | version dependent | Kudu role virtual memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+
+### Spark Module Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_spark_service_health | state | >= 5.8 | Spark service health. | cluster, service_name, service_type, service_state, health_summary |
+| kbdi_spark_role_health | state | >= 5.8 | Spark role health. | cluster, service_name, service_type, role_name, role_type, hostname, role_state, health_summary |
+| kbdi_spark_apps_running | apps | version dependent | Spark running applications. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_apps_completed | apps | version dependent | Spark completed applications. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_apps_failed | apps | version dependent | Spark failed applications. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_executors_active | executors | version dependent | Spark active executors. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_drivers_active | drivers | version dependent | Spark active drivers. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_memory_used | bytes | version dependent | Spark memory used. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_cores_used | cores | version dependent | Spark cores used. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_history_server_jvm_heap_used_mb | MB | version dependent | Spark History Server JVM heap used. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_cpu_user_rate | seconds/s | version dependent | Spark role user CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_cpu_system_rate | seconds/s | version dependent | Spark role system CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_mem_rss | bytes | version dependent | Spark role resident memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_spark_mem_virtual | bytes | version dependent | Spark role virtual memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+
+### Yarn Module Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_yarn_service_health | state | >= 5.8 | YARN service health. | cluster, service_name, service_type, service_state, health_summary |
+| kbdi_yarn_role_health | state | >= 5.8 | YARN role health. | cluster, service_name, service_type, role_name, role_type, hostname, role_state, health_summary |
+| kbdi_yarn_apps_running | apps | version dependent | YARN running applications. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_apps_pending | apps | version dependent | YARN pending applications. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_apps_failed | apps | version dependent | YARN failed applications. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_apps_killed | apps | version dependent | YARN killed applications. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_containers_allocated | containers | version dependent | YARN allocated containers. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_containers_pending | containers | version dependent | YARN pending containers. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_total_memory_mb | MB | version dependent | YARN total memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_allocated_memory_mb | MB | version dependent | YARN allocated memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_available_memory_mb | MB | version dependent | YARN available memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_total_vcores | vcores | version dependent | YARN total vcores. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_allocated_vcores | vcores | version dependent | YARN allocated vcores. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_available_vcores | vcores | version dependent | YARN available vcores. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_active_nodemanagers | nodes | version dependent | YARN active NodeManagers. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_lost_nodemanagers | nodes | version dependent | YARN lost NodeManagers. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_unhealthy_nodemanagers | nodes | version dependent | YARN unhealthy NodeManagers. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_jvm_heap_used_mb | MB | version dependent | YARN role JVM heap used. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_cpu_user_rate | seconds/s | version dependent | YARN role user CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_cpu_system_rate | seconds/s | version dependent | YARN role system CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_mem_rss | bytes | version dependent | YARN role resident memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_yarn_mem_virtual | bytes | version dependent | YARN role virtual memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+
+### Zookeeper Module Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_zookeeper_service_health | state | >= 5.8 | ZooKeeper service health. | cluster, service_name, service_type, service_state, health_summary |
+| kbdi_zookeeper_role_health | state | >= 5.8 | ZooKeeper server health. | cluster, service_name, service_type, role_name, role_type, hostname, role_state, health_summary |
+| kbdi_zookeeper_outstanding_requests | requests | version dependent | ZooKeeper outstanding requests. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_znode_count | znodes | version dependent | ZooKeeper znode count. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_watch_count | watches | version dependent | ZooKeeper watch count. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_num_alive_connections | connections | version dependent | ZooKeeper alive connections. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_packets_received_rate | packets/s | version dependent | ZooKeeper packets received. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_packets_sent_rate | packets/s | version dependent | ZooKeeper packets sent. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_latency_min | time | version dependent | ZooKeeper minimum latency. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_latency_avg | time | version dependent | ZooKeeper average latency. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_latency_max | time | version dependent | ZooKeeper maximum latency. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_jvm_heap_used_mb | MB | version dependent | ZooKeeper JVM heap used. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_cpu_user_rate | seconds/s | version dependent | ZooKeeper role user CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_cpu_system_rate | seconds/s | version dependent | ZooKeeper role system CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_mem_rss | bytes | version dependent | ZooKeeper role resident memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_zookeeper_mem_virtual | bytes | version dependent | ZooKeeper role virtual memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+
+### NiFi Module Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_nifi_service_health | state | version dependent | NiFi service health when exposed by CM or CSD. | cluster, service_name, service_type, service_state, health_summary |
+| kbdi_nifi_role_health | state | version dependent | NiFi role health when exposed by CM or CSD. | cluster, service_name, service_type, role_name, role_type, hostname, role_state, health_summary |
+| kbdi_nifi_flow_files_queued | files | version dependent | NiFi queued flow files. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_bytes_queued | bytes | version dependent | NiFi queued bytes. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_bytes_read_rate | bytes/s | version dependent | NiFi bytes read. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_bytes_written_rate | bytes/s | version dependent | NiFi bytes written. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_bytes_sent_rate | bytes/s | version dependent | NiFi bytes sent. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_bytes_received_rate | bytes/s | version dependent | NiFi bytes received. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_active_threads | threads | version dependent | NiFi active threads. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_garbage_collection_rate | collections/s | version dependent | NiFi garbage collection rate. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_jvm_heap_used_mb | MB | version dependent | NiFi JVM heap used. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_cpu_user_rate | seconds/s | version dependent | NiFi role user CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_cpu_system_rate | seconds/s | version dependent | NiFi role system CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_mem_rss | bytes | version dependent | NiFi role resident memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_nifi_mem_virtual | bytes | version dependent | NiFi role virtual memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+
+### Flink Module Metrics
+| Metric Name | Unit | C.M. Version | Description | Metadata/Labels |
+|-------------|:----:|:------------:|-------------|-----------------|
+| kbdi_flink_service_health | state | version dependent | Flink service health when exposed by CM or CSD. | cluster, service_name, service_type, service_state, health_summary |
+| kbdi_flink_role_health | state | version dependent | Flink role health when exposed by CM or CSD. | cluster, service_name, service_type, role_name, role_type, hostname, role_state, health_summary |
+| kbdi_flink_jobs_running | jobs | version dependent | Flink running jobs. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_jobs_failed | jobs | version dependent | Flink failed jobs. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_jobs_finished | jobs | version dependent | Flink finished jobs. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_task_slots_total | slots | version dependent | Flink total task slots. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_task_slots_available | slots | version dependent | Flink available task slots. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_checkpoints_completed | checkpoints | version dependent | Flink completed checkpoints. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_checkpoints_failed | checkpoints | version dependent | Flink failed checkpoints. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_jvm_heap_used_mb | MB | version dependent | Flink JVM heap used. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_cpu_user_rate | seconds/s | version dependent | Flink role user CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_cpu_system_rate | seconds/s | version dependent | Flink role system CPU. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_mem_rss | bytes | version dependent | Flink role resident memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+| kbdi_flink_mem_virtual | bytes | version dependent | Flink role virtual memory. | cluster, entityName, serviceName, serviceType, roleName, roleType, hostname |
+
 ### KBDI Metrics
 | Metric Name | Unit           | Description                     | Metadata |
 |-------------|:--------------:|---------------------------------|----------|
