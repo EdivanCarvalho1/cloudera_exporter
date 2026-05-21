@@ -103,6 +103,10 @@ func serviceScopedMetricQuery(metricName string, serviceTypes []string) string {
 	return fmt.Sprintf("SELECT LAST(%s) WHERE %s", metricName, predicate)
 }
 
+func rawMetricQuery(metricName string) string {
+	return fmt.Sprintf("SELECT LAST(%s)", metricName)
+}
+
 func roleMetricQuery(metricName string, serviceTypes []string, roleTypes ...string) string {
 	predicates := []string{"category=ROLE"}
 	if servicePredicate := serviceTypesPredicate(serviceTypes); servicePredicate != "" {
@@ -148,11 +152,57 @@ func commonRoleMetrics(serviceTypes []string, roleTypes ...string) []serviceTime
 			Help:  "Virtual memory used by service roles in bytes.",
 			Query: roleMetricQuery("mem_virtual", serviceTypes, roleTypes...),
 		},
+		{
+			Name:  "mem_swap",
+			Help:  "Swap memory used by service roles in bytes.",
+			Query: roleMetricQuery("mem_swap", serviceTypes, roleTypes...),
+		},
+		{
+			Name:  "cgroup_mem_swap",
+			Help:  "Swap memory used by service role cgroups in bytes.",
+			Query: roleMetricQuery("cgroup_mem_swap", serviceTypes, roleTypes...),
+		},
+		{
+			Name:  "fd_open",
+			Help:  "Open file descriptors for service roles.",
+			Query: roleMetricQuery("fd_open", serviceTypes, roleTypes...),
+		},
+		{
+			Name:  "fd_max",
+			Help:  "Maximum file descriptors for service roles.",
+			Query: roleMetricQuery("fd_max", serviceTypes, roleTypes...),
+		},
+		{
+			Name:  "uptime",
+			Help:  "Uptime reported for service roles.",
+			Query: roleMetricQuery("uptime", serviceTypes, roleTypes...),
+		},
+		{
+			Name:  "unexpected_exits_rate",
+			Help:  "Unexpected service role exits per second.",
+			Query: roleMetricQuery("unexpected_exits_rate", serviceTypes, roleTypes...),
+		},
+		{
+			Name:  "oom_exits_rate",
+			Help:  "Out-of-memory service role exits per second.",
+			Query: roleMetricQuery("oom_exits_rate", serviceTypes, roleTypes...),
+		},
 	}
 }
 
 func appendCommonRoleMetrics(metrics []serviceTimeseriesMetric, serviceTypes []string, roleTypes ...string) []serviceTimeseriesMetric {
-	return append(metrics, commonRoleMetrics(serviceTypes, roleTypes...)...)
+	existing := make(map[string]struct{}, len(metrics))
+	for _, metric := range metrics {
+		existing[metric.Name] = struct{}{}
+	}
+	for _, metric := range commonRoleMetrics(serviceTypes, roleTypes...) {
+		if _, ok := existing[metric.Name]; ok {
+			continue
+		}
+		metrics = append(metrics, metric)
+		existing[metric.Name] = struct{}{}
+	}
+	return metrics
 }
 
 func scrapeServiceModule(ctx context.Context, config Collector_connection_data, spec serviceScraperSpec, ch chan<- prometheus.Metric) error {

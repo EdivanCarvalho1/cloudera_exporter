@@ -48,6 +48,7 @@ atlas_module = true
 hue_module = true
 knox_module = true
 flume_module = true
+observability_module = true
 
 [system]
 num_procs = 2
@@ -96,6 +97,7 @@ log_level = 0
 		"hue",
 		"knox",
 		"flume",
+		"observability",
 	}
 	for _, name := range expected {
 		if !enabled[name] {

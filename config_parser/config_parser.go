@@ -207,6 +207,11 @@ func parse_flume_module_flag(config_reader *ini.File) bool {
 	return flume_module_flag
 }
 
+func parse_observability_module_flag(config_reader *ini.File) bool {
+	observability_module_flag := config_reader.Section("modules").Key("observability_module").MustBool(false)
+	return observability_module_flag
+}
+
 func parse_num_procs(config_reader *ini.File) (int, error) {
 	num_procs := config_reader.Section("system").Key("num_procs").MustInt(0)
 	if num_procs == 0 {
@@ -313,6 +318,7 @@ func Parse_config(config interface{}) (*CE_config, error) {
 	hue_module_flag := parse_hue_module_flag(cfg)
 	knox_module_flag := parse_knox_module_flag(cfg)
 	flume_module_flag := parse_flume_module_flag(cfg)
+	observability_module_flag := parse_observability_module_flag(cfg)
 
 	// System parameters
 	num_procs, err := parse_num_procs(cfg)
@@ -368,6 +374,7 @@ func Parse_config(config interface{}) (*CE_config, error) {
 					cl.ScrapeHue{}:           hue_module_flag,
 					cl.ScrapeKnox{}:          knox_module_flag,
 					cl.ScrapeFlume{}:         flume_module_flag,
+					cl.ScrapeObservability{}: observability_module_flag,
 				},
 			},
 			deploy_ip,

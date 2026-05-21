@@ -37,10 +37,21 @@ The exporter keeps one Scraper per module. Modules can be enabled or disabled in
 * Zookeeper
 * NiFi
 * Flink
+* Oozie
+* Ozone
+* Solr
+* Ranger
+* Atlas
+* Hue
+* Knox
+* Flume
+* Observability
 
 The modules use the Cloudera Manager API. Status and inventory data are read from the cluster, service and role endpoints, while detailed service metrics are read from `/timeseries` using tsquery.
 
 Some Cloudera Manager metric names vary by Cloudera Manager version, CDH/CDP release and installed parcels or CSDs. If a metric does not exist in a given installation, that metric is skipped and the remaining modules continue scraping. NiFi and Flink are treated as optional CSD/custom services; if they are absent, their modules do not fail the exporter.
+
+The Observability module exposes a curated set of high-signal schema metrics for Grafana dashboards, including service health, host infrastructure, capacity, queue, latency, JVM, replication and backpressure metrics.
 
 Example module flags:
 
@@ -67,6 +78,7 @@ atlas_module = true
 hue_module = true
 knox_module = true
 flume_module = true
+observability_module = true
 ```
 
 ## Building and Running
