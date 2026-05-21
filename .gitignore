@@ -5,3 +5,4 @@ alias
 *tar
 cloudera_exporter
 /testdata
+metricas_schema.json
