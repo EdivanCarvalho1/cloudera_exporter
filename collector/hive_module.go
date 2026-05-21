@@ -42,6 +42,71 @@ var hiveSpec = serviceScraperSpec{
 			Query: roleMetricQuery("hive_completed_operation_closed_rate", hiveServiceTypes, "HIVESERVER2"),
 		},
 		{
+			Name:  "hive_memory_total_used",
+			Help:  "Hive total memory used.",
+			Query: roleMetricQuery("hive_memory_total_used", hiveServiceTypes, "HIVESERVER2", "HIVEMETASTORE"),
+		},
+		{
+			Name:  "hive_memory_heap_used",
+			Help:  "Hive heap memory used.",
+			Query: roleMetricQuery("hive_memory_heap_used", hiveServiceTypes, "HIVESERVER2", "HIVEMETASTORE"),
+		},
+		{
+			Name:  "hive_memory_non_heap_used",
+			Help:  "Hive non-heap memory used.",
+			Query: roleMetricQuery("hive_memory_non_heap_used", hiveServiceTypes, "HIVESERVER2", "HIVEMETASTORE"),
+		},
+		{
+			Name:  "hive_num_open_transactions",
+			Help:  "Hive open transactions.",
+			Query: roleMetricQuery("hive_num_open_transactions", hiveServiceTypes, "HIVEMETASTORE"),
+		},
+		{
+			Name:  "hive_num_aborted_transactions",
+			Help:  "Hive aborted transactions.",
+			Query: roleMetricQuery("hive_num_aborted_transactions", hiveServiceTypes, "HIVEMETASTORE"),
+		},
+		{
+			Name:  "hive_total_num_committed_transactions_rate",
+			Help:  "Hive committed transactions per second.",
+			Query: roleMetricQuery("hive_total_num_committed_transactions_rate", hiveServiceTypes, "HIVEMETASTORE"),
+		},
+		{
+			Name:  "hive_total_num_aborted_transactions_rate",
+			Help:  "Hive aborted transactions per second.",
+			Query: roleMetricQuery("hive_total_num_aborted_transactions_rate", hiveServiceTypes, "HIVEMETASTORE"),
+		},
+		{
+			Name:  "hive_api_compile_avg",
+			Help:  "Hive average compile time.",
+			Query: roleMetricQuery("hive_api_compile_avg", hiveServiceTypes, "HIVESERVER2"),
+		},
+		{
+			Name:  "hive_api_compile_rate",
+			Help:  "Hive compile rate.",
+			Query: roleMetricQuery("hive_api_compile_rate", hiveServiceTypes, "HIVESERVER2"),
+		},
+		{
+			Name:  "hive_api_driver_run_avg",
+			Help:  "Hive average driver run time.",
+			Query: roleMetricQuery("hive_api_driver_run_avg", hiveServiceTypes, "HIVESERVER2"),
+		},
+		{
+			Name:  "hive_api_driver_run_rate",
+			Help:  "Hive driver run rate.",
+			Query: roleMetricQuery("hive_api_driver_run_rate", hiveServiceTypes, "HIVESERVER2"),
+		},
+		{
+			Name:  "hive_api_operation_running_avg",
+			Help:  "Hive average running operations.",
+			Query: roleMetricQuery("hive_api_operation_running_avg", hiveServiceTypes, "HIVESERVER2"),
+		},
+		{
+			Name:  "hive_api_operation_pending_avg",
+			Help:  "Hive average pending operations.",
+			Query: roleMetricQuery("hive_api_operation_pending_avg", hiveServiceTypes, "HIVESERVER2"),
+		},
+		{
 			Name:  "jvm_heap_used_mb",
 			Help:  "Hive role JVM heap used in MB.",
 			Query: roleMetricQuery("jvm_heap_used_mb", hiveServiceTypes, hiveRoleTypes...),

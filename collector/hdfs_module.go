@@ -36,28 +36,38 @@ import (
 const HDFS_SCRAPER_NAME = "hdfs"
 const (
 	// Agent Queries
-	HDFS_DFS_CAPACITY                = "SELECT LAST(dfs_capacity) WHERE category=SERVICE"
-	HDFS_DFS_CAPACITY_USED           = "SELECT LAST(dfs_capacity_used) WHERE category=SERVICE"
-	HDFS_DFS_CAPACITY_REMAINING      = "SELECT LAST(dfs_capacity - dfs_capacity_used) WHERE category=SERVICE AND serviceType=HDFS"
-	HDFS_DFS_CAPACITY_USED_PERCENT   = "SELECT LAST(((100 * dfs_capacity_used) / dfs_capacity)) WHERE serviceType=HDFS AND category=SERVICE and entityName rlike \"hdfs:.*\""
-	HDFS_DFS_CAPACITY_NON_HDFS_USED  = "SELECT LAST(dfs_capacity_used_non_hdfs) WHERE category=SERVICE"
-	HDFS_BLOCK_CAPACITY              = "SELECT LAST(block_capacity) WHERE category=SERVICE"
-	HDFS_BLOCK_TOTAL                 = "SELECT LAST(blocks_total) WHERE category=SERVICE"
-	HDFS_BLOCK_CORRUPT_REPLICAS      = "SELECT LAST(blocks_with_corrupt_replicas) WHERE category=SERVICE"
-	HDFS_BLOCK_EXCESS                = "SELECT LAST(excess_blocks) WHERE category=SERVICE"
-	HDFS_BLOCK_MISSING               = "SELECT LAST(missing_blocks) WHERE category=SERVICE"
-	HDFS_BLOCK_UNDER_REPLICATED      = "SELECT LAST(under_replicated_blocks) WHERE category=SERVICE"
-	HDFS_CORRUPT_BLOCKS              = "SELECT LAST(blocks_with_corrupt_replicas) WHERE category=SERVICE AND serviceType=HDFS"
-	HDFS_BLOCK_WRITE                 = "SELECT LAST(INTEGRAL(total_blocks_written_rate_across_datanodes)) WHERE entityName=hdfs"
-	HDFS_BLOCK_READ                  = "SELECT LAST(INTEGRAL(total_blocks_read_rate_across_datanodes)) WHERE entityName=hdfs"
-	HDFS_FILES_TOTAL                 = "SELECT LAST(files_total) WHERE category=SERVICE"
-	HDFS_FILES_SIZE_AVG              = "SELECT LAST(dfs_capacity_used / files_total) WHERE category=SERVICE"
-	HDFS_HEARTBEATS_EXPIRED          = "SELECT LAST(expired_heartbeats) WHERE category=SERVICE"
-	HDFS_NAMENODE_FD_MAX_DESCRIPTORS = "SELECT LAST(fd_max_across_namenodes) WHERE category=SERVICE"
-	HDFS_NAMENODE_JVM_HEAP_USED_MB   = "SELECT LAST(jvm_heap_used_mb) WHERE category=ROLE AND serviceType=HDFS AND roleType=NAMENODE"
-	HDFS_DATANODE_JVM_HEAP_USED_MB   = "SELECT LAST(jvm_heap_used_mb) WHERE category=ROLE AND serviceType=HDFS AND roleType=DATANODE"
-	HDFS_SNAPSHOT_NUM                = "SELECT LAST(total_snapshots_across_namenodes) WHERE category=CLUSTER and entityName=1"
-	HDFS_SNAPSHOT_DIRS               = "SELECT LAST(total_snapshottable_directories_across_namenodes) WHERE category=CLUSTER and entityName=1"
+	HDFS_DFS_CAPACITY                        = "SELECT LAST(dfs_capacity) WHERE category=SERVICE"
+	HDFS_DFS_CAPACITY_USED                   = "SELECT LAST(dfs_capacity_used) WHERE category=SERVICE"
+	HDFS_DFS_CAPACITY_REMAINING              = "SELECT LAST(dfs_capacity - dfs_capacity_used) WHERE category=SERVICE AND serviceType=HDFS"
+	HDFS_DFS_CAPACITY_USED_PERCENT           = "SELECT LAST(((100 * dfs_capacity_used) / dfs_capacity)) WHERE serviceType=HDFS AND category=SERVICE and entityName rlike \"hdfs:.*\""
+	HDFS_DFS_CAPACITY_NON_HDFS_USED          = "SELECT LAST(dfs_capacity_used_non_hdfs) WHERE category=SERVICE"
+	HDFS_BLOCK_CAPACITY                      = "SELECT LAST(block_capacity) WHERE category=SERVICE"
+	HDFS_BLOCK_TOTAL                         = "SELECT LAST(blocks_total) WHERE category=SERVICE"
+	HDFS_BLOCK_CORRUPT_REPLICAS              = "SELECT LAST(blocks_with_corrupt_replicas) WHERE category=SERVICE"
+	HDFS_BLOCK_EXCESS                        = "SELECT LAST(excess_blocks) WHERE category=SERVICE"
+	HDFS_BLOCK_MISSING                       = "SELECT LAST(missing_blocks) WHERE category=SERVICE"
+	HDFS_BLOCK_UNDER_REPLICATED              = "SELECT LAST(under_replicated_blocks) WHERE category=SERVICE"
+	HDFS_CORRUPT_BLOCKS                      = "SELECT LAST(blocks_with_corrupt_replicas) WHERE category=SERVICE AND serviceType=HDFS"
+	HDFS_BLOCK_WRITE                         = "SELECT LAST(INTEGRAL(total_blocks_written_rate_across_datanodes)) WHERE entityName=hdfs"
+	HDFS_BLOCK_READ                          = "SELECT LAST(INTEGRAL(total_blocks_read_rate_across_datanodes)) WHERE entityName=hdfs"
+	HDFS_FILES_TOTAL                         = "SELECT LAST(files_total) WHERE category=SERVICE"
+	HDFS_FILES_SIZE_AVG                      = "SELECT LAST(dfs_capacity_used / files_total) WHERE category=SERVICE"
+	HDFS_HEARTBEATS_EXPIRED                  = "SELECT LAST(expired_heartbeats) WHERE category=SERVICE"
+	HDFS_NAMENODE_FD_MAX_DESCRIPTORS         = "SELECT LAST(fd_max_across_namenodes) WHERE category=SERVICE"
+	HDFS_NAMENODE_JVM_HEAP_USED_MB           = "SELECT LAST(jvm_heap_used_mb) WHERE category=ROLE AND serviceType=HDFS AND roleType=NAMENODE"
+	HDFS_DATANODE_JVM_HEAP_USED_MB           = "SELECT LAST(jvm_heap_used_mb) WHERE category=ROLE AND serviceType=HDFS AND roleType=DATANODE"
+	HDFS_SNAPSHOT_NUM                        = "SELECT LAST(total_snapshots_across_namenodes) WHERE category=CLUSTER and entityName=1"
+	HDFS_SNAPSHOT_DIRS                       = "SELECT LAST(total_snapshottable_directories_across_namenodes) WHERE category=CLUSTER and entityName=1"
+	HDFS_LIVE_DATANODES                      = "SELECT LAST(live_datanodes) WHERE category=SERVICE AND serviceType=HDFS"
+	HDFS_DEAD_DATANODES                      = "SELECT LAST(dead_datanodes) WHERE category=SERVICE AND serviceType=HDFS"
+	HDFS_STALE_DATANODES                     = "SELECT LAST(stale_datanodes) WHERE category=SERVICE AND serviceType=HDFS"
+	HDFS_VOLUME_FAILURES                     = "SELECT LAST(volume_failures) WHERE category=SERVICE AND serviceType=HDFS"
+	HDFS_PENDING_DELETION_BLOCKS             = "SELECT LAST(pending_deletion_blocks) WHERE category=SERVICE AND serviceType=HDFS"
+	HDFS_SCHEDULED_REPLICATION_BLOCKS        = "SELECT LAST(scheduled_replication_blocks) WHERE category=SERVICE AND serviceType=HDFS"
+	HDFS_LAST_CHECKPOINT_TIME                = "SELECT LAST(last_checkpoint_time) WHERE category=ROLE AND serviceType=HDFS AND roleType=NAMENODE"
+	HDFS_TIME_SINCE_LAST_CHECKPOINT          = "SELECT LAST(nn_time_since_last_checkpoint) WHERE category=ROLE AND serviceType=HDFS AND roleType=NAMENODE"
+	HDFS_TRANSACTIONS_SINCE_CHECKPOINT       = "SELECT LAST(transactions_since_last_checkpoint) WHERE category=ROLE AND serviceType=HDFS AND roleType=NAMENODE"
+	HDFS_JOURNAL_MOST_RECENT_CHECKPOINT_TXID = "SELECT LAST(journal_transaction_most_recent_checkpoint_txid) WHERE category=ROLE AND serviceType=HDFS AND roleType=JOURNALNODE"
 )
 
 /* ======================================================================
@@ -66,30 +76,40 @@ const (
 // Prometheus data Descriptors for the metrics to export
 var (
 	// Agent Metrics
-	hdfs_dfs_capacity                = create_hdfs_metric_struct("dfs_capacity", "Distributed File System Capacity")
-	hdfs_dfs_capacity_used           = create_hdfs_metric_struct("dfs_capacity_used", "Distributed File System Capacity Used")
-	hdfs_dfs_capacity_remaining      = create_hdfs_metric_struct("dfs_capacity_remaining", "Distributed File System Capacity Remaining")
-	hdfs_dfs_capacity_used_percent   = create_hdfs_metric_struct("dfs_capacity_used_in_percent", "Distributed File System Capacity Used in X Percent")
-	hdfs_dfs_capacity_non_hdfs_used  = create_hdfs_metric_struct("dfs_capacity_non_hdfs_used", "Distributed File System Capacity Used by Non HDFS File System")
-	hdfs_block_capacity              = create_hdfs_metric_struct("block_capacity", "Distributed File System Num Blocks Capacity")
-	hdfs_block_total                 = create_hdfs_metric_struct("block_total", "Distributed File System Num Blocks Total")
-	hdfs_block_corrupt_replicas      = create_hdfs_metric_struct("block_corrupt_replicas", "Distributed File System Num Block with corrupted replicas")
-	hdfs_block_excess                = create_hdfs_metric_struct("block_excess", "Distributed File System Num Excess blocks")
-	hdfs_block_missing               = create_hdfs_metric_struct("block_missing", "Distributed File System Num Missing blocks")
-	hdfs_block_under_replicated      = create_hdfs_metric_struct("block_under_replicated", "Distributed File System Num Under-Replicated blocks")
-	hdfs_missing_blocks              = create_hdfs_metric_struct("missing_blocks", "Distributed File System Num Missing blocks")
-	hdfs_under_replicated_blocks     = create_hdfs_metric_struct("under_replicated_blocks", "Distributed File System Num Under-Replicated blocks")
-	hdfs_corrupt_blocks              = create_hdfs_metric_struct("corrupt_blocks", "Distributed File System Num Corrupt blocks")
-	hdfs_block_write                 = create_hdfs_metric_struct("block_write_rate", "Distributed File System Rate Writed blocks")
-	hdfs_block_read                  = create_hdfs_metric_struct("block_read_rate", "Distributed File System Rate Readed blocks")
-	hdfs_files_total                 = create_hdfs_metric_struct("files_total", "Distributed File System Num Total Files In HDFS")
-	hdfs_files_size_avg              = create_hdfs_metric_struct("files_average_size", "Distributed File System Avg Size of Files In HDFS")
-	hdfs_heartbeats_expired          = create_hdfs_metric_struct("heartbeat_expired", "Distributed File System Num Total Heartbeats Expired")
-	hdfs_namenode_fd_max_descriptors = create_hdfs_metric_struct("namenode_fd_max_descriptors", "Distributed File System Namenode Max File Descriptors")
-	hdfs_namenode_jvm_heap_used_mb   = create_hdfs_metric_struct("namenode_jvm_heap_used_mb", "NameNode JVM heap used in MB")
-	hdfs_datanode_jvm_heap_used_mb   = create_hdfs_metric_struct("datanode_jvm_heap_used_mb", "DataNode JVM heap used in MB")
-	hdfs_snapshot_num                = create_hdfs_metric_struct("snapshot_num", "Distributed File System Num Total Snapshots")
-	hdfs_snapshot_dirs               = create_hdfs_metric_struct("snapshot_dirs", "Distributed File System Num Total Snapshottable Dirs")
+	hdfs_dfs_capacity                        = create_hdfs_metric_struct("dfs_capacity", "Distributed File System Capacity")
+	hdfs_dfs_capacity_used                   = create_hdfs_metric_struct("dfs_capacity_used", "Distributed File System Capacity Used")
+	hdfs_dfs_capacity_remaining              = create_hdfs_metric_struct("dfs_capacity_remaining", "Distributed File System Capacity Remaining")
+	hdfs_dfs_capacity_used_percent           = create_hdfs_metric_struct("dfs_capacity_used_in_percent", "Distributed File System Capacity Used in X Percent")
+	hdfs_dfs_capacity_non_hdfs_used          = create_hdfs_metric_struct("dfs_capacity_non_hdfs_used", "Distributed File System Capacity Used by Non HDFS File System")
+	hdfs_block_capacity                      = create_hdfs_metric_struct("block_capacity", "Distributed File System Num Blocks Capacity")
+	hdfs_block_total                         = create_hdfs_metric_struct("block_total", "Distributed File System Num Blocks Total")
+	hdfs_block_corrupt_replicas              = create_hdfs_metric_struct("block_corrupt_replicas", "Distributed File System Num Block with corrupted replicas")
+	hdfs_block_excess                        = create_hdfs_metric_struct("block_excess", "Distributed File System Num Excess blocks")
+	hdfs_block_missing                       = create_hdfs_metric_struct("block_missing", "Distributed File System Num Missing blocks")
+	hdfs_block_under_replicated              = create_hdfs_metric_struct("block_under_replicated", "Distributed File System Num Under-Replicated blocks")
+	hdfs_missing_blocks                      = create_hdfs_metric_struct("missing_blocks", "Distributed File System Num Missing blocks")
+	hdfs_under_replicated_blocks             = create_hdfs_metric_struct("under_replicated_blocks", "Distributed File System Num Under-Replicated blocks")
+	hdfs_corrupt_blocks                      = create_hdfs_metric_struct("corrupt_blocks", "Distributed File System Num Corrupt blocks")
+	hdfs_block_write                         = create_hdfs_metric_struct("block_write_rate", "Distributed File System Rate Writed blocks")
+	hdfs_block_read                          = create_hdfs_metric_struct("block_read_rate", "Distributed File System Rate Readed blocks")
+	hdfs_files_total                         = create_hdfs_metric_struct("files_total", "Distributed File System Num Total Files In HDFS")
+	hdfs_files_size_avg                      = create_hdfs_metric_struct("files_average_size", "Distributed File System Avg Size of Files In HDFS")
+	hdfs_heartbeats_expired                  = create_hdfs_metric_struct("heartbeat_expired", "Distributed File System Num Total Heartbeats Expired")
+	hdfs_namenode_fd_max_descriptors         = create_hdfs_metric_struct("namenode_fd_max_descriptors", "Distributed File System Namenode Max File Descriptors")
+	hdfs_namenode_jvm_heap_used_mb           = create_hdfs_metric_struct("namenode_jvm_heap_used_mb", "NameNode JVM heap used in MB")
+	hdfs_datanode_jvm_heap_used_mb           = create_hdfs_metric_struct("datanode_jvm_heap_used_mb", "DataNode JVM heap used in MB")
+	hdfs_snapshot_num                        = create_hdfs_metric_struct("snapshot_num", "Distributed File System Num Total Snapshots")
+	hdfs_snapshot_dirs                       = create_hdfs_metric_struct("snapshot_dirs", "Distributed File System Num Total Snapshottable Dirs")
+	hdfs_live_datanodes                      = create_hdfs_metric_struct("live_datanodes", "Distributed File System live DataNodes")
+	hdfs_dead_datanodes                      = create_hdfs_metric_struct("dead_datanodes", "Distributed File System dead DataNodes")
+	hdfs_stale_datanodes                     = create_hdfs_metric_struct("stale_datanodes", "Distributed File System stale DataNodes")
+	hdfs_volume_failures                     = create_hdfs_metric_struct("volume_failures", "Distributed File System volume failures")
+	hdfs_pending_deletion_blocks             = create_hdfs_metric_struct("pending_deletion_blocks", "Distributed File System pending deletion blocks")
+	hdfs_scheduled_replication_blocks        = create_hdfs_metric_struct("scheduled_replication_blocks", "Distributed File System scheduled replication blocks")
+	hdfs_last_checkpoint_time                = create_hdfs_metric_struct("last_checkpoint_time", "NameNode last checkpoint time")
+	hdfs_time_since_last_checkpoint          = create_hdfs_metric_struct("time_since_last_checkpoint", "NameNode time since last checkpoint")
+	hdfs_transactions_since_checkpoint       = create_hdfs_metric_struct("transactions_since_last_checkpoint", "NameNode transactions since last checkpoint")
+	hdfs_journal_most_recent_checkpoint_txid = create_hdfs_metric_struct("journal_most_recent_checkpoint_txid", "JournalNode most recent checkpoint transaction ID")
 )
 
 // Creation of the structure that relates the queries with the descriptors of the Prometheus metrics
@@ -118,6 +138,16 @@ var hdfs_query_variable_relationship = []relation{
 	{HDFS_DATANODE_JVM_HEAP_USED_MB, *hdfs_datanode_jvm_heap_used_mb},
 	{HDFS_SNAPSHOT_NUM, *hdfs_snapshot_num},
 	{HDFS_SNAPSHOT_DIRS, *hdfs_snapshot_dirs},
+	{HDFS_LIVE_DATANODES, *hdfs_live_datanodes},
+	{HDFS_DEAD_DATANODES, *hdfs_dead_datanodes},
+	{HDFS_STALE_DATANODES, *hdfs_stale_datanodes},
+	{HDFS_VOLUME_FAILURES, *hdfs_volume_failures},
+	{HDFS_PENDING_DELETION_BLOCKS, *hdfs_pending_deletion_blocks},
+	{HDFS_SCHEDULED_REPLICATION_BLOCKS, *hdfs_scheduled_replication_blocks},
+	{HDFS_LAST_CHECKPOINT_TIME, *hdfs_last_checkpoint_time},
+	{HDFS_TIME_SINCE_LAST_CHECKPOINT, *hdfs_time_since_last_checkpoint},
+	{HDFS_TRANSACTIONS_SINCE_CHECKPOINT, *hdfs_transactions_since_checkpoint},
+	{HDFS_JOURNAL_MOST_RECENT_CHECKPOINT_TXID, *hdfs_journal_most_recent_checkpoint_txid},
 }
 
 /* ======================================================================

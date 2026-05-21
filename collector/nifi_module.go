@@ -52,6 +52,46 @@ var nifiSpec = serviceScraperSpec{
 			Query: roleMetricQuery("nifi_amount_threads_active", nifiServiceTypes, nifiRoleTypes...),
 		},
 		{
+			Name:  "nifi_amount_flowfiles_receive",
+			Help:  "NiFi flow files received.",
+			Query: roleMetricQuery("nifi_amount_flowfiles_receive", nifiServiceTypes, nifiRoleTypes...),
+		},
+		{
+			Name:  "nifi_amount_flowfiles_sent",
+			Help:  "NiFi flow files sent.",
+			Query: roleMetricQuery("nifi_amount_flowfiles_sent", nifiServiceTypes, nifiRoleTypes...),
+		},
+		{
+			Name:  "nifi_percent_used_bytes",
+			Help:  "NiFi repository bytes used percentage.",
+			Query: roleMetricQuery("nifi_percent_used_bytes", nifiServiceTypes, nifiRoleTypes...),
+		},
+		{
+			Name:  "nifi_percent_used_count",
+			Help:  "NiFi repository count used percentage.",
+			Query: roleMetricQuery("nifi_percent_used_count", nifiServiceTypes, nifiRoleTypes...),
+		},
+		{
+			Name:  "nifi_time_to_bytes_backpressure_prediction",
+			Help:  "NiFi time to bytes backpressure prediction.",
+			Query: roleMetricQuery("nifi_time_to_bytes_backpressure_prediction", nifiServiceTypes, nifiRoleTypes...),
+		},
+		{
+			Name:  "nifi_time_to_count_backpressure_prediction",
+			Help:  "NiFi time to count backpressure prediction.",
+			Query: roleMetricQuery("nifi_time_to_count_backpressure_prediction", nifiServiceTypes, nifiRoleTypes...),
+		},
+		{
+			Name:  "nifi_node_connectivity",
+			Help:  "NiFi node connectivity status.",
+			Query: roleMetricQuery("nifi_node_connectivity", nifiServiceTypes, nifiRoleTypes...),
+		},
+		{
+			Name:  "nifi_open_files_count_check",
+			Help:  "NiFi open files count check.",
+			Query: roleMetricQuery("nifi_open_files_count_check", nifiServiceTypes, nifiRoleTypes...),
+		},
+		{
 			Name:  "nifi_jvm_thread_count",
 			Help:  "NiFi JVM thread count.",
 			Query: roleMetricQuery("nifi_jvm_thread_count", nifiServiceTypes, nifiRoleTypes...),

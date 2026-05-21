@@ -6,3 +6,4 @@ alias
 cloudera_exporter
 /testdata
 metricas_schema.json
+config.alloy

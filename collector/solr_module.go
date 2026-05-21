@@ -51,6 +51,21 @@ var solrSpec = serviceScraperSpec{
 			Query: roleMetricQuery("solr_info_avg_time_per_request", solrServiceTypes),
 		},
 		{
+			Name:  "solr_info_99th_pc_request_time",
+			Help:  "Solr 99th percentile request time.",
+			Query: roleMetricQuery("solr_info_99th_pc_request_time", solrServiceTypes),
+		},
+		{
+			Name:  "solr_info_avg_requests_per_second",
+			Help:  "Solr average requests per second.",
+			Query: roleMetricQuery("solr_info_avg_requests_per_second", solrServiceTypes),
+		},
+		{
+			Name:  "solr_info_time_rate",
+			Help:  "Solr request time rate.",
+			Query: roleMetricQuery("solr_info_time_rate", solrServiceTypes),
+		},
+		{
 			Name:  "solr_info_median_request_time",
 			Help:  "Solr median request time.",
 			Query: roleMetricQuery("solr_info_median_request_time", solrServiceTypes),
@@ -64,6 +79,16 @@ var solrSpec = serviceScraperSpec{
 			Name:  "solr_core_status_collection_duration",
 			Help:  "Solr core status collection duration.",
 			Query: roleMetricQuery("solr_core_status_collection_duration", solrServiceTypes),
+		},
+		{
+			Name:  "solr_counters_elements",
+			Help:  "Solr counter elements.",
+			Query: roleMetricQuery("solr_counters_elements", solrServiceTypes),
+		},
+		{
+			Name:  "solr_counters_relations",
+			Help:  "Solr counter relations.",
+			Query: roleMetricQuery("solr_counters_relations", solrServiceTypes),
 		},
 	}, solrServiceTypes),
 }

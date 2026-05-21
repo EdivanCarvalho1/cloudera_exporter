@@ -51,6 +51,21 @@ var rangerSpec = serviceScraperSpec{
 			Query: roleMetricQuery("ranger_kms_key_count", rangerServiceTypes),
 		},
 		{
+			Name:  "ranger_kms_key_create_count",
+			Help:  "Ranger KMS key create count.",
+			Query: roleMetricQuery("ranger_kms_key_create_count", rangerServiceTypes),
+		},
+		{
+			Name:  "ranger_kms_eek_generate_count",
+			Help:  "Ranger KMS encrypted encryption key generate count.",
+			Query: roleMetricQuery("ranger_kms_eek_generate_count", rangerServiceTypes),
+		},
+		{
+			Name:  "ranger_kms_eek_decrypt_count",
+			Help:  "Ranger KMS encrypted encryption key decrypt count.",
+			Query: roleMetricQuery("ranger_kms_eek_decrypt_count", rangerServiceTypes),
+		},
+		{
 			Name:  "ranger_rms_jvm_used_memory",
 			Help:  "Ranger RMS JVM used memory.",
 			Query: roleMetricQuery("ranger_rms_jvm_used_memory", rangerServiceTypes),
@@ -74,6 +89,16 @@ var rangerSpec = serviceScraperSpec{
 			Name:  "ranger_raz_requests_failed_count",
 			Help:  "Ranger RAZ failed request count.",
 			Query: roleMetricQuery("ranger_raz_requests_failed_count", rangerServiceTypes),
+		},
+		{
+			Name:  "ranger_plugin_hdfs_spool_directory_size",
+			Help:  "Ranger HDFS plugin spool directory size.",
+			Query: roleMetricQuery("ranger_plugin_hdfs_spool_directory_size", rangerServiceTypes),
+		},
+		{
+			Name:  "ranger_plugin_solr_spool_directory_size",
+			Help:  "Ranger Solr plugin spool directory size.",
+			Query: roleMetricQuery("ranger_plugin_solr_spool_directory_size", rangerServiceTypes),
 		},
 	}, rangerServiceTypes),
 }

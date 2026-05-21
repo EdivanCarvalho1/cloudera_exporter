@@ -71,9 +71,39 @@ var ozoneSpec = serviceScraperSpec{
 			Query: roleMetricQuery("ozone_scm_dead_nodes", ozoneServiceTypes),
 		},
 		{
+			Name:  "ozone_scm_decommissioning_nodes",
+			Help:  "Ozone SCM decommissioning nodes.",
+			Query: roleMetricQuery("ozone_scm_decommissioning_nodes", ozoneServiceTypes),
+		},
+		{
+			Name:  "ozone_scm_decommissioned_nodes",
+			Help:  "Ozone SCM decommissioned nodes.",
+			Query: roleMetricQuery("ozone_scm_decommissioned_nodes", ozoneServiceTypes),
+		},
+		{
 			Name:  "ozone_scm_num_current_healthy_pipeline",
 			Help:  "Ozone SCM current healthy pipelines.",
 			Query: roleMetricQuery("ozone_scm_num_current_healthy_pipeline", ozoneServiceTypes),
+		},
+		{
+			Name:  "ozone_scm_pipelines_created",
+			Help:  "Ozone SCM pipelines created.",
+			Query: roleMetricQuery("ozone_scm_pipelines_created", ozoneServiceTypes),
+		},
+		{
+			Name:  "ozone_scm_pipelines_creation_failed",
+			Help:  "Ozone SCM pipeline creation failures.",
+			Query: roleMetricQuery("ozone_scm_pipelines_creation_failed", ozoneServiceTypes),
+		},
+		{
+			Name:  "ozone_scm_pipelines_destroyed",
+			Help:  "Ozone SCM pipelines destroyed.",
+			Query: roleMetricQuery("ozone_scm_pipelines_destroyed", ozoneServiceTypes),
+		},
+		{
+			Name:  "ozone_scm_pipelines_destroy_failed",
+			Help:  "Ozone SCM pipeline destroy failures.",
+			Query: roleMetricQuery("ozone_scm_pipelines_destroy_failed", ozoneServiceTypes),
 		},
 		{
 			Name:  "ozone_scm_num_open_connections",
@@ -89,6 +119,16 @@ var ozoneSpec = serviceScraperSpec{
 			Name:  "ozone_scm_call_queue_length",
 			Help:  "Ozone SCM call queue length.",
 			Query: roleMetricQuery("ozone_scm_call_queue_length", ozoneServiceTypes),
+		},
+		{
+			Name:  "ozone_om_rpc_avg_processing_time",
+			Help:  "Ozone Manager average RPC processing time.",
+			Query: roleMetricQuery("ozone_om_rpc_avg_processing_time", ozoneServiceTypes),
+		},
+		{
+			Name:  "ozone_scm_rpc_avg_processing_time",
+			Help:  "Ozone SCM average RPC processing time.",
+			Query: roleMetricQuery("ozone_scm_rpc_avg_processing_time", ozoneServiceTypes),
 		},
 	}, ozoneServiceTypes),
 }

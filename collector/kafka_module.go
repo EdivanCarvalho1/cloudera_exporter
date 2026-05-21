@@ -107,6 +107,61 @@ var kafkaSpec = serviceScraperSpec{
 			Query: roleMetricQuery("kafka_response_queue_size", kafkaServiceTypes, kafkaRoleTypes...),
 		},
 		{
+			Name:  "kafka_log_flush_rate",
+			Help:  "Kafka log flush rate.",
+			Query: roleMetricQuery("kafka_log_flush_rate", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
+			Name:  "kafka_log_flush_avg",
+			Help:  "Kafka average log flush time.",
+			Query: roleMetricQuery("kafka_log_flush_avg", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
+			Name:  "kafka_log_flush_99th_percentile",
+			Help:  "Kafka 99th percentile log flush time.",
+			Query: roleMetricQuery("kafka_log_flush_99th_percentile", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
+			Name:  "kafka_fetch_purgatory_size",
+			Help:  "Kafka fetch purgatory size.",
+			Query: roleMetricQuery("kafka_fetch_purgatory_size", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
+			Name:  "kafka_fetch_purgatory_delayed_requests",
+			Help:  "Kafka delayed fetch requests.",
+			Query: roleMetricQuery("kafka_fetch_purgatory_delayed_requests", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
+			Name:  "kafka_producer_purgatory_size",
+			Help:  "Kafka producer purgatory size.",
+			Query: roleMetricQuery("kafka_producer_purgatory_size", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
+			Name:  "kafka_producer_purgatory_delayed_requests",
+			Help:  "Kafka delayed producer requests.",
+			Query: roleMetricQuery("kafka_producer_purgatory_delayed_requests", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
+			Name:  "kafka_replicas_count",
+			Help:  "Kafka replica count.",
+			Query: roleMetricQuery("kafka_replicas_count", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
+			Name:  "kafka_offline_replica_count",
+			Help:  "Kafka offline replica count.",
+			Query: roleMetricQuery("kafka_offline_replica_count", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
+			Name:  "kafka_controller_change_rate_and_time_ms_rate",
+			Help:  "Kafka controller change rate.",
+			Query: roleMetricQuery("kafka_controller_change_rate_and_time_ms_rate", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
+			Name:  "kafka_partition_reassignment_rate_and_time_ms_rate",
+			Help:  "Kafka partition reassignment rate.",
+			Query: roleMetricQuery("kafka_partition_reassignment_rate_and_time_ms_rate", kafkaServiceTypes, kafkaRoleTypes...),
+		},
+		{
 			Name:  "jvm_heap_used_mb",
 			Help:  "Kafka broker JVM heap used in MB.",
 			Query: roleMetricQuery("jvm_heap_used_mb", kafkaServiceTypes, kafkaRoleTypes...),

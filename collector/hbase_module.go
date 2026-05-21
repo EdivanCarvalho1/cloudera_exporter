@@ -52,6 +52,26 @@ var hbaseSpec = serviceScraperSpec{
 			Query: roleMetricQuery("block_cache_hit_ratio", hbaseServiceTypes, "REGIONSERVER"),
 		},
 		{
+			Name:  "block_cache_hit_rate",
+			Help:  "HBase block cache hit rate.",
+			Query: roleMetricQuery("block_cache_hit_rate", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
+			Name:  "block_cache_miss_rate",
+			Help:  "HBase block cache miss rate.",
+			Query: roleMetricQuery("block_cache_miss_rate", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
+			Name:  "block_cache_size",
+			Help:  "HBase block cache size.",
+			Query: roleMetricQuery("block_cache_size", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
+			Name:  "block_cache_free_size",
+			Help:  "HBase block cache free size.",
+			Query: roleMetricQuery("block_cache_free_size", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
 			Name:  "block_cache_evicted_rate",
 			Help:  "HBase block cache eviction rate.",
 			Query: roleMetricQuery("block_cache_evicted_rate", hbaseServiceTypes, "REGIONSERVER"),
@@ -70,6 +90,26 @@ var hbaseSpec = serviceScraperSpec{
 			Name:  "flush_queue_size",
 			Help:  "HBase flush queue size.",
 			Query: roleMetricQuery("flush_queue_size", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
+			Name:  "slow_get_rate",
+			Help:  "HBase slow get operation rate.",
+			Query: roleMetricQuery("slow_get_rate", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
+			Name:  "slow_put_rate",
+			Help:  "HBase slow put operation rate.",
+			Query: roleMetricQuery("slow_put_rate", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
+			Name:  "slow_delete_rate",
+			Help:  "HBase slow delete operation rate.",
+			Query: roleMetricQuery("slow_delete_rate", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
+			Name:  "wal_append_rate",
+			Help:  "HBase WAL append rate.",
+			Query: roleMetricQuery("wal_append_rate", hbaseServiceTypes, "REGIONSERVER"),
 		},
 		{
 			Name:  "jvm_heap_used_mb",

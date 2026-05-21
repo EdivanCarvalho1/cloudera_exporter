@@ -72,6 +72,51 @@ var kuduSpec = serviceScraperSpec{
 			Query: roleMetricQuery("kudu_memory_usage", kuduServiceTypes, kuduRoleTypes...),
 		},
 		{
+			Name:  "kudu_leader_memory_pressure_rejections_rate",
+			Help:  "Kudu leader memory pressure rejections per second.",
+			Query: roleMetricQuery("kudu_leader_memory_pressure_rejections_rate", kuduServiceTypes, "KUDU_TSERVER"),
+		},
+		{
+			Name:  "kudu_follower_memory_pressure_rejections_rate",
+			Help:  "Kudu follower memory pressure rejections per second.",
+			Query: roleMetricQuery("kudu_follower_memory_pressure_rejections_rate", kuduServiceTypes, "KUDU_TSERVER"),
+		},
+		{
+			Name:  "kudu_block_cache_usage",
+			Help:  "Kudu block cache usage.",
+			Query: roleMetricQuery("kudu_block_cache_usage", kuduServiceTypes, kuduRoleTypes...),
+		},
+		{
+			Name:  "kudu_file_cache_usage",
+			Help:  "Kudu file cache usage.",
+			Query: roleMetricQuery("kudu_file_cache_usage", kuduServiceTypes, kuduRoleTypes...),
+		},
+		{
+			Name:  "kudu_all_transactions_inflight",
+			Help:  "Kudu transactions currently in flight.",
+			Query: roleMetricQuery("kudu_all_transactions_inflight", kuduServiceTypes, kuduRoleTypes...),
+		},
+		{
+			Name:  "kudu_write_transactions_inflight",
+			Help:  "Kudu write transactions currently in flight.",
+			Query: roleMetricQuery("kudu_write_transactions_inflight", kuduServiceTypes, kuduRoleTypes...),
+		},
+		{
+			Name:  "kudu_log_gc_running",
+			Help:  "Kudu running log garbage collection tasks.",
+			Query: roleMetricQuery("kudu_log_gc_running", kuduServiceTypes, kuduRoleTypes...),
+		},
+		{
+			Name:  "kudu_flush_mrs_running",
+			Help:  "Kudu running MemRowSet flushes.",
+			Query: roleMetricQuery("kudu_flush_mrs_running", kuduServiceTypes, "KUDU_TSERVER"),
+		},
+		{
+			Name:  "kudu_compact_rs_running",
+			Help:  "Kudu running rowset compactions.",
+			Query: roleMetricQuery("kudu_compact_rs_running", kuduServiceTypes, "KUDU_TSERVER"),
+		},
+		{
 			Name:  "jvm_heap_used_mb",
 			Help:  "Kudu role JVM heap used in MB when exposed by Cloudera Manager.",
 			Query: roleMetricQuery("jvm_heap_used_mb", kuduServiceTypes, kuduRoleTypes...),

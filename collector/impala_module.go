@@ -43,120 +43,148 @@ const IMPALA_SCRAPER_NAME = "impala"
 
 var (
 	// Agent Queries
-	IMPALA_CATALOG_JVM_COMITTED_BYTES         = "SELECT LAST(impala_catalogserver_jvm_heap_committed_usage_bytes) WHERE serviceType = \"IMPALA\""
-	IMPALA_CATALOG_JVM_CURRENT_BYTES          = "SELECT LAST(impala_catalogserver_jvm_heap_current_usage_bytes) WHERE serviceType = \"IMPALA\""
-	IMPALA_CATALOG_JVM_INIT_BYTES             = "SELECT LAST(impala_catalogserver_jvm_heap_init_usage_bytes) WHERE serviceType = \"IMPALA\""
-	IMPALA_CATALOG_JVM_MAX_BYTES              = "SELECT LAST(impala_catalogserver_jvm_heap_max_usage_bytes) WHERE serviceType = \"IMPALA\""
-	IMPALA_CGROUP_MEM_PAGE_CACHE              = "SELECT LAST(cgroup_mem_page_cache) WHERE serviceType = \"IMPALA\""
-	IMPALA_CGROUP_MEM_RSS                     = "SELECT LAST(cgroup_mem_rss) WHERE serviceType = \"IMPALA\""
-	IMPALA_CGROUP_MEM_SWAP                    = "SELECT LAST(cgroup_mem_swap) WHERE serviceType = \"IMPALA\""
-	IMPALA_CGROUP_READ_IOSRATE                = "SELECT LAST(INTEGRAL(cgroup_read_ios_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_CGROUP_READ_RATE                   = "SELECT LAST(INTEGRAL(cgroup_read_bytes_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_CGROUP_SYSTEM_RATE                 = "SELECT LAST(INTEGRAL(cgroup_cpu_system_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_CGROUP_USER_RATE                   = "SELECT LAST(INTEGRAL(cgroup_cpu_user_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_CGROUP_WRITE_IOSRATE               = "SELECT LAST(INTEGRAL(cgroup_write_ios_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_CGROUP_WRITE_RATE                  = "SELECT LAST(INTEGRAL(cgroup_write_bytes_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_MEM_RSS                            = "SELECT LAST(mem_rss) WHERE serviceType = \"IMPALA\""
-	IMPALA_MEM_SWAP                           = "SELECT LAST(mem_swap) WHERE serviceType = \"IMPALA\""
-	IMPALA_MEM_VIRT                           = "SELECT LAST(mem_virtual) WHERE serviceType = \"IMPALA\""
-	IMPALA_NUM_QUERIES                        = "SELECT LAST(impala_num_queries_registered) WHERE serviceType = \"IMPALA\""
-	IMPALA_NUM_SESSIONS                       = "SELECT LAST(num_open_hiveserver2_sessions + num_open_beeswax_sessions) WHERE serviceType = \"IMPALA\""
-	IMPALA_OOMEXIT                            = "SELECT LAST(INTEGRAL(oom_exits_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_ADMISSION_WAIT_RATE          = "SELECT LAST(INTEGRAL(impala_query_admission_wait_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_BYTES_HDFS_READ_RATE         = "SELECT LAST(INTEGRAL(impala_query_hdfs_bytes_read_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_BYTES_HDFS_WRITTE_RATE       = "SELECT LAST(INTEGRAL(impala_query_hdfs_bytes_written_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_BYTES_STREAMED_RATE          = "SELECT LAST(INTEGRAL(impala_query_bytes_streamed_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_CM_CPU                       = "SELECT LAST(INTEGRAL(impala_query_cm_cpu_milliseconds_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_DURATION_RATE                = "SELECT LAST(INTEGRAL(impala_query_query_duration_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_INGESTED_RATE                = "SELECT LAST(INTEGRAL(queries_ingested_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_MEM_ACCRUAL_RATE             = "SELECT LAST(INTEGRAL(impala_query_memory_accrual_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_MEM_SPILLED_RATE             = "SELECT LAST(INTEGRAL(impala_query_memory_spilled_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_OOMRATE                      = "SELECT LAST(INTEGRAL(queries_oom_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_REJECTED_RATE                = "SELECT LAST(INTEGRAL(queries_rejected_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_SPILLED_RATE                 = "SELECT LAST(INTEGRAL(queries_spilled_memory_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_SUCCESSFUL_RATE              = "SELECT LAST(INTEGRAL(queries_successful_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_THREAD_CPU_RATE              = "SELECT LAST(INTEGRAL(impala_query_thread_cpu_time_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_QUERY_TIME_OUT_RATE                = "SELECT LAST(INTEGRAL(queries_timed_out_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_JVM_HEAP_USED_MB                   = "SELECT LAST(jvm_heap_used_mb) WHERE category=ROLE AND serviceType = \"IMPALA\""
-	IMPALA_READ_RATE                          = "SELECT LAST(INTEGRAL(read_bytes_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_STATE_STORE_CACHE_TOTAL_CLIENTS    = "SELECT LAST(statestore_subscriber_statestore_client_cache_total_clients) WHERE serviceType = \"IMPALA\""
-	IMPALA_STATE_STORE_CLIENTS_IN_USE         = "SELECT LAST(statestore_subscriber_statestore_client_cache_clients_in_use) WHERE serviceType = \"IMPALA\""
-	IMPALA_STATE_STORE_HEART_BEAT_LAST        = "SELECT LAST(statestore_subscriber_heartbeat_interval_time_last) WHERE serviceType = \"IMPALA\""
-	IMPALA_STATE_STORE_HEART_BEAT_MAX         = "SELECT LAST(statestore_subscriber_heartbeat_interval_time_max) WHERE serviceType = \"IMPALA\""
-	IMPALA_STATE_STORE_HEART_BEAT_MEAN        = "SELECT LAST(statestore_subscriber_heartbeat_interval_time_mean) WHERE serviceType = \"IMPALA\""
-	IMPALA_STATE_STORE_HEART_BEAT_MIN         = "SELECT LAST(statestore_subscriber_heartbeat_interval_time_min) WHERE serviceType = \"IMPALA\""
-	IMPALA_STATE_STORE_HEART_BEAT_RATE        = "SELECT LAST(INTEGRAL(statestore_subscriber_heartbeat_interval_time_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_STATE_STORE_HEART_BEAT_STDDEV      = "SELECT LAST(statestore_subscriber_heartbeat_interval_time_stddev) WHERE serviceType = \"IMPALA\""
-	IMPALA_STATE_STORE_LAST_RECOVERY_DURATION = "SELECT LAST(statestore_subscriber_last_recovery_duration) WHERE serviceType = \"IMPALA\""
-	IMPALA_TCMALLOC_FREE_BYTES                = "SELECT LAST(tcmalloc_pageheap_free_bytes) WHERE serviceType = \"IMPALA\""
-	IMPALA_TCMALLOC_PHYSICAL_RESERVED_BYTES   = "SELECT LAST(tcmalloc_physical_bytes_reserved) WHERE serviceType = \"IMPALA\""
-	IMPALA_TCMALLOC_TOTAL_RESERVED_BYTES      = "SELECT LAST(tcmalloc_total_bytes_reserved) WHERE serviceType = \"IMPALA\""
-	IMPALA_TCMALLOC_UNMAPPED_BYTES            = "SELECT LAST(tcmalloc_pageheap_unmapped_bytes) WHERE serviceType = \"IMPALA\""
-	IMPALA_TCMALLOC_USED_BYTES                = "SELECT LAST(tcmalloc_bytes_in_use) WHERE serviceType = \"IMPALA\""
-	IMPALA_THRIFT_CONNECTIONS_RATE            = "SELECT LAST(INTEGRAL(thrift_server_catalog_service_connections_rate)) WHERE serviceType = \"IMPALA\""
-	IMPALA_THRIFT_CONNECTIONS_USED            = "SELECT LAST(thrift_server_catalog_service_connections_in_use) WHERE serviceType = \"IMPALA\""
-	IMPALA_WRITE_RATE                         = "SELECT LAST(INTEGRAL(write_bytes_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_CATALOG_JVM_COMITTED_BYTES           = "SELECT LAST(impala_catalogserver_jvm_heap_committed_usage_bytes) WHERE serviceType = \"IMPALA\""
+	IMPALA_CATALOG_JVM_CURRENT_BYTES            = "SELECT LAST(impala_catalogserver_jvm_heap_current_usage_bytes) WHERE serviceType = \"IMPALA\""
+	IMPALA_CATALOG_JVM_INIT_BYTES               = "SELECT LAST(impala_catalogserver_jvm_heap_init_usage_bytes) WHERE serviceType = \"IMPALA\""
+	IMPALA_CATALOG_JVM_MAX_BYTES                = "SELECT LAST(impala_catalogserver_jvm_heap_max_usage_bytes) WHERE serviceType = \"IMPALA\""
+	IMPALA_CGROUP_MEM_PAGE_CACHE                = "SELECT LAST(cgroup_mem_page_cache) WHERE serviceType = \"IMPALA\""
+	IMPALA_CGROUP_MEM_RSS                       = "SELECT LAST(cgroup_mem_rss) WHERE serviceType = \"IMPALA\""
+	IMPALA_CGROUP_MEM_SWAP                      = "SELECT LAST(cgroup_mem_swap) WHERE serviceType = \"IMPALA\""
+	IMPALA_CGROUP_READ_IOSRATE                  = "SELECT LAST(INTEGRAL(cgroup_read_ios_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_CGROUP_READ_RATE                     = "SELECT LAST(INTEGRAL(cgroup_read_bytes_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_CGROUP_SYSTEM_RATE                   = "SELECT LAST(INTEGRAL(cgroup_cpu_system_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_CGROUP_USER_RATE                     = "SELECT LAST(INTEGRAL(cgroup_cpu_user_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_CGROUP_WRITE_IOSRATE                 = "SELECT LAST(INTEGRAL(cgroup_write_ios_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_CGROUP_WRITE_RATE                    = "SELECT LAST(INTEGRAL(cgroup_write_bytes_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_MEM_RSS                              = "SELECT LAST(mem_rss) WHERE serviceType = \"IMPALA\""
+	IMPALA_MEM_SWAP                             = "SELECT LAST(mem_swap) WHERE serviceType = \"IMPALA\""
+	IMPALA_MEM_VIRT                             = "SELECT LAST(mem_virtual) WHERE serviceType = \"IMPALA\""
+	IMPALA_NUM_QUERIES                          = "SELECT LAST(impala_num_queries_registered) WHERE serviceType = \"IMPALA\""
+	IMPALA_NUM_SESSIONS                         = "SELECT LAST(num_open_hiveserver2_sessions + num_open_beeswax_sessions) WHERE serviceType = \"IMPALA\""
+	IMPALA_OOMEXIT                              = "SELECT LAST(INTEGRAL(oom_exits_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_ADMISSION_WAIT_RATE            = "SELECT LAST(INTEGRAL(impala_query_admission_wait_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_BYTES_HDFS_READ_RATE           = "SELECT LAST(INTEGRAL(impala_query_hdfs_bytes_read_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_BYTES_HDFS_WRITTE_RATE         = "SELECT LAST(INTEGRAL(impala_query_hdfs_bytes_written_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_BYTES_STREAMED_RATE            = "SELECT LAST(INTEGRAL(impala_query_bytes_streamed_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_CM_CPU                         = "SELECT LAST(INTEGRAL(impala_query_cm_cpu_milliseconds_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_DURATION_RATE                  = "SELECT LAST(INTEGRAL(impala_query_query_duration_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_INGESTED_RATE                  = "SELECT LAST(INTEGRAL(queries_ingested_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_MEM_ACCRUAL_RATE               = "SELECT LAST(INTEGRAL(impala_query_memory_accrual_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_MEM_SPILLED_RATE               = "SELECT LAST(INTEGRAL(impala_query_memory_spilled_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_OOMRATE                        = "SELECT LAST(INTEGRAL(queries_oom_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_REJECTED_RATE                  = "SELECT LAST(INTEGRAL(queries_rejected_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_SPILLED_RATE                   = "SELECT LAST(INTEGRAL(queries_spilled_memory_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_SUCCESSFUL_RATE                = "SELECT LAST(INTEGRAL(queries_successful_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_THREAD_CPU_RATE                = "SELECT LAST(INTEGRAL(impala_query_thread_cpu_time_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_QUERY_TIME_OUT_RATE                  = "SELECT LAST(INTEGRAL(queries_timed_out_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_JVM_HEAP_USED_MB                     = "SELECT LAST(jvm_heap_used_mb) WHERE category=ROLE AND serviceType = \"IMPALA\""
+	IMPALA_READ_RATE                            = "SELECT LAST(INTEGRAL(read_bytes_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_STATE_STORE_CACHE_TOTAL_CLIENTS      = "SELECT LAST(statestore_subscriber_statestore_client_cache_total_clients) WHERE serviceType = \"IMPALA\""
+	IMPALA_STATE_STORE_CLIENTS_IN_USE           = "SELECT LAST(statestore_subscriber_statestore_client_cache_clients_in_use) WHERE serviceType = \"IMPALA\""
+	IMPALA_STATE_STORE_HEART_BEAT_LAST          = "SELECT LAST(statestore_subscriber_heartbeat_interval_time_last) WHERE serviceType = \"IMPALA\""
+	IMPALA_STATE_STORE_HEART_BEAT_MAX           = "SELECT LAST(statestore_subscriber_heartbeat_interval_time_max) WHERE serviceType = \"IMPALA\""
+	IMPALA_STATE_STORE_HEART_BEAT_MEAN          = "SELECT LAST(statestore_subscriber_heartbeat_interval_time_mean) WHERE serviceType = \"IMPALA\""
+	IMPALA_STATE_STORE_HEART_BEAT_MIN           = "SELECT LAST(statestore_subscriber_heartbeat_interval_time_min) WHERE serviceType = \"IMPALA\""
+	IMPALA_STATE_STORE_HEART_BEAT_RATE          = "SELECT LAST(INTEGRAL(statestore_subscriber_heartbeat_interval_time_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_STATE_STORE_HEART_BEAT_STDDEV        = "SELECT LAST(statestore_subscriber_heartbeat_interval_time_stddev) WHERE serviceType = \"IMPALA\""
+	IMPALA_STATE_STORE_LAST_RECOVERY_DURATION   = "SELECT LAST(statestore_subscriber_last_recovery_duration) WHERE serviceType = \"IMPALA\""
+	IMPALA_TCMALLOC_FREE_BYTES                  = "SELECT LAST(tcmalloc_pageheap_free_bytes) WHERE serviceType = \"IMPALA\""
+	IMPALA_TCMALLOC_PHYSICAL_RESERVED_BYTES     = "SELECT LAST(tcmalloc_physical_bytes_reserved) WHERE serviceType = \"IMPALA\""
+	IMPALA_TCMALLOC_TOTAL_RESERVED_BYTES        = "SELECT LAST(tcmalloc_total_bytes_reserved) WHERE serviceType = \"IMPALA\""
+	IMPALA_TCMALLOC_UNMAPPED_BYTES              = "SELECT LAST(tcmalloc_pageheap_unmapped_bytes) WHERE serviceType = \"IMPALA\""
+	IMPALA_TCMALLOC_USED_BYTES                  = "SELECT LAST(tcmalloc_bytes_in_use) WHERE serviceType = \"IMPALA\""
+	IMPALA_THRIFT_CONNECTIONS_RATE              = "SELECT LAST(INTEGRAL(thrift_server_catalog_service_connections_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_THRIFT_CONNECTIONS_USED              = "SELECT LAST(thrift_server_catalog_service_connections_in_use) WHERE serviceType = \"IMPALA\""
+	IMPALA_WRITE_RATE                           = "SELECT LAST(INTEGRAL(write_bytes_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_NUM_FRAGMENTS_IN_FLIGHT              = "SELECT LAST(impala_num_fragments_in_flight) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_LOCAL_NUM_QUEUED           = "SELECT LAST(impala_admission_controller_local_num_queued) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_LOCAL_NUM_ADMITTED_RUNNING = "SELECT LAST(impala_admission_controller_local_num_admitted_running) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_LOCAL_BACKEND_MEM_RESERVED = "SELECT LAST(impala_admission_controller_local_backend_mem_reserved) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_LOCAL_BACKEND_MEM_USAGE    = "SELECT LAST(impala_admission_controller_local_backend_mem_usage) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_TIME_IN_QUEUE_MS_RATE      = "SELECT LAST(INTEGRAL(impala_admission_controller_time_in_queue_ms_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_TOTAL_ADMITTED_RATE        = "SELECT LAST(INTEGRAL(impala_admission_controller_total_admitted_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_TOTAL_REJECTED_RATE        = "SELECT LAST(INTEGRAL(impala_admission_controller_total_rejected_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_TOTAL_TIMED_OUT_RATE       = "SELECT LAST(INTEGRAL(impala_admission_controller_total_timed_out_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_TOTAL_QUEUED_RATE          = "SELECT LAST(INTEGRAL(impala_admission_controller_total_queued_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_TOTAL_DEQUEUED_RATE        = "SELECT LAST(INTEGRAL(impala_admission_controller_total_dequeued_rate)) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_POOL_MAX_MEM_RESOURCES     = "SELECT LAST(impala_admission_controller_pool_max_mem_resources) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_POOL_MAX_REQUESTS          = "SELECT LAST(impala_admission_controller_pool_max_requests) WHERE serviceType = \"IMPALA\""
+	IMPALA_ADMISSION_POOL_MAX_QUEUED            = "SELECT LAST(impala_admission_controller_pool_max_queued) WHERE serviceType = \"IMPALA\""
 )
 
 /* ======================================================================
  * Global variables
  * ====================================================================== */
 var (
-	impala_catalog_jvm_comitted_bytes         = create_impala_metric_struct("impala_catalogserver_jvm_heap_committed_usage_bytes", "Jvm heap Committed Usage in Bytes.")
-	impala_catalog_jvm_current_bytes          = create_impala_metric_struct("impala_catalogserver_jvm_heap_current_usage_bytes", "Jvm heap Current Usage in Bytes.")
-	impala_catalog_jvm_init_bytes             = create_impala_metric_struct("impala_catalogserver_jvm_heap_init_usage_bytes", "JVM heap Init Usage in Bytes.")
-	impala_catalog_jvm_max_bytes              = create_impala_metric_struct("impala_catalogserver_jvm_heap_max_usage_bytes", "JVM heap Max Usage in Bytes.")
-	impala_cgroup_mem_page_cache              = create_impala_metric_struct("cgroup_mem_page_cache", "Page cache usage of the role's cgroup in Bytes.")
-	impala_cgroup_mem_rss                     = create_impala_metric_struct("cgroup_mem_rss", "Resident memory of the role's cgroup in Bytes.")
-	impala_cgroup_mem_swap                    = create_impala_metric_struct("cgroup_mem_swap", "Swap usage of the role's cgroup in Bytes.")
-	impala_cgroup_read_iosrate                = create_impala_metric_struct("cgroup_read_ios_rate", "Number of read I/O operations from all disks by the role's cgroup.")
-	impala_cgroup_read_rate                   = create_impala_metric_struct("cgroup_read_bytes_rate", "Bytes read from all disks by the role's cgroup in Bytes per second.")
-	impala_cgroup_system_rate                 = create_impala_metric_struct("cgroup_cpu_system_rate", "CPU usage of the role's cgroup in Bytes per second.")
-	impala_cgroup_user_rate                   = create_impala_metric_struct("cgroup_cpu_user_rate", "User Space CPU usage of the role's cgroup in Bytes per second.")
-	impala_cgroup_write_iosrate               = create_impala_metric_struct("cgroup_write_ios_rate", "Number of write I/O operations to all disks by the role's cgroup.")
-	impala_cgroup_write_rate                  = create_impala_metric_struct("cgroup_write_bytes_rate", "Bytes written to all disks by the role's cgroup.")
-	impala_mem_rss                            = create_impala_metric_struct("mem_rss", "Resident memory used in Bytes")
-	impala_mem_swap                           = create_impala_metric_struct("mem_swap", "Amount of swap memory used by this role's process in Bytes")
-	impala_mem_virt                           = create_impala_metric_struct("mem_virtual", "Virtual memory used in Bytes.")
-	impala_num_queries                        = create_impala_metric_struct("impala_num_queries_registered", "Number of registered Impala queries.")
-	impala_num_sessions                       = create_impala_metric_struct("num_sessions", "Number of Impala sessions.")
-	impala_oomexit                            = create_impala_metric_struct("oom_exits_rate", "The number of times the role's backing process was killed due to an OutOfMemory error. This counter is only incremented if the Cloudera Manager \"Kill When Out of Memory\" option is enabled.")
-	impala_query_admission_wait_rate          = create_impala_metric_struct("impala_query_admission_wait_rate", "The time from submission for admission to its completion in milliseconds.")
-	impala_query_bytes_hdfs_read_rate         = create_impala_metric_struct("impala_query_hdfs_bytes_read_rate", "The total number of bytes read from HDFS by this Impala query.")
-	impala_query_bytes_hdfs_writte_rate       = create_impala_metric_struct("impala_query_hdfs_bytes_written_rate", "The total number of bytes written to HDFS by this Impala query.")
-	impala_query_bytes_streamed_rate          = create_impala_metric_struct("impala_query_bytes_streamed_rate", "The total number of bytes sent between Impala Daemons while processing this query.")
-	impala_query_cm_cpu                       = create_impala_metric_struct("impala_query_cm_cpu_milliseconds_rate", "impala.analysis.cm_cpu_milliseconds.description.")
-	impala_query_duration_rate                = create_impala_metric_struct("impala_query_query_duration_rate", "The duration of the query in milliseconds.")
-	impala_query_ingested_rate                = create_impala_metric_struct("queries_ingested_rate", "Impala queries ingested by the Service Monitor")
-	impala_query_mem_accrual_rate             = create_impala_metric_struct("impala_query_memory_accrual_rate", "The total accrued memory usage by the query. This is computed by multiplaying the average aggregate memory usage of the query by the query's duration.")
-	impala_query_mem_spilled_rate             = create_impala_metric_struct("impala_query_memory_spilled_rate", "Amount of memory spilled to disk in Bytes.")
-	impala_query_oomrate                      = create_impala_metric_struct("queries_oom_rate", "Number of Impala queries for which memory consumption exceeded what was allowed")
-	impala_query_rejected_rate                = create_impala_metric_struct("queries_rejected_rate", "Number of Impala queries rejected from admission, commonly due to the queue being full or insufficient memory")
-	impala_query_spilled_rate                 = create_impala_metric_struct("queries_spilleed_rate", "Number of Impala queries that spilled to disk")
-	impala_queries_spilled_rate_alias         = create_impala_metric_struct("queries_spilled_rate", "Number of Impala queries that spilled to disk")
-	impala_query_successful_rate              = create_impala_metric_struct("queries_successful_rate", "Number of Impala queries that ran to completion successfully")
-	impala_query_thread_cpu_rate              = create_impala_metric_struct("impala_query_thread_cpu_time_rate", "The sum of the CPU time used by all threads of the query.")
-	impala_query_time_out_rate                = create_impala_metric_struct("queries_time_out_rate", "Impala queries that timed out waiting in queue during admission in milliseconds")
-	impala_queries_timeout_rate_alias         = create_impala_metric_struct("queries_timeout_rate", "Impala queries that timed out waiting in queue during admission")
-	impala_jvm_heap_used_mb                   = create_impala_metric_struct("jvm_heap_used_mb", "Impala role JVM heap used in MB.")
-	impala_read_rate                          = create_impala_metric_struct("read_bytes_rate", "The number of bytes read from the device.")
-	impala_state_store_cache_total_clients    = create_impala_metric_struct("statestore_subscriber_statestore_client_cache_total_clients", "The total number of StateStore subscriber clients in this Impala Daemon's client cache. These clients are for communication from this role to the StateStore.")
-	impala_state_store_clients_in_use         = create_impala_metric_struct("statestore_subscriber_statestore_client_cache_clients_in_use", "The number of active StateStore subscriber clients in this Impala Daemon's client cache. These clients are for communication from this role to the StateStore.")
-	impala_state_store_heart_beat_last        = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_last", "The most recent interval between heartbeats from this Impala Daemon to the StateStore in seconds.")
-	impala_state_store_heart_beat_max         = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_max", " The maximum interval between heartbeats from this Impala Daemon to the StateStore in seconds. This is calculated over the lifetime of the Impala Daemon.")
-	impala_state_store_heart_beat_mean        = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_mean", " The average interval between heartbeats from this Impala Daemon to the StateStore in seconds. This is calculated over the lifetime of the Impala Daemon.")
-	impala_state_store_heart_beat_min         = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_min", "The minimum interval between heartbeats from this Impala Daemon to the StateStore in seconds. This is calculated over the lifetime of the Impala Daemon.")
-	impala_state_store_heart_beat_rate        = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_rate", "The total number of samples taken of the Impala Daemon's StateStore heartbeat interval in samples per second.")
-	impala_state_store_heart_beat_stddev      = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_stddev", "The standard deviation in the interval between heartbeats from this Impala Daemon to the StateStore in seconds. This is calculated over the lifetime of the Impala Daemon.")
-	impala_state_store_last_recovery_duration = create_impala_metric_struct("statestore_subscriber_last_recovery_duration", "The amount of time, in seconds, the StateStore subscriber took to recover the connection the last time it was lost.")
-	impala_tcmalloc_free_bytes                = create_impala_metric_struct("tcmalloc_pageheap_free_bytes", "Number of bytes in free, mapped pages in page heap. These bytes can be used to fulfill allocation requests. They always count towards virtual memory usage, and unless the underlying memory is swapped out by the OS, they also count towards physical memory usage.")
-	impala_tcmalloc_physical_reserved_bytes   = create_impala_metric_struct("tcmalloc_physical_bytes_reserved", "Derived metric computing the amount of physical memory (in bytes) used by the process, including that actually in use and free bytes reserved by tcmalloc. Does not include the tcmalloc metadata.")
-	impala_tcmalloc_total_reserved_bytes      = create_impala_metric_struct("tcmalloc_total_bytes_reserved", "Bytes of system memory reserved by TCMalloc.")
-	impala_tcmalloc_unmapped_bytes            = create_impala_metric_struct("tcmalloc_pageheap_unmapped_bytes", "Number of bytes in free, unmapped pages in page heap. These are bytes that have been released back to the OS, possibly by one of the MallocExtension \"Release\" calls. They can be used to fulfill allocation requests, but typically incur a page fault. They always count towards virtual memory usage, and depending on the OS, typically do not count towards physical memory usage.")
-	impala_tcmalloc_used_bytes                = create_impala_metric_struct("tcmalloc_bytes_in_use", "Number of bytes used by the application. This will not typically match the memory use reported by the OS, because it does not include TCMalloc overhead or memory fragmentation.")
-	impala_thrift_connections_rate            = create_impala_metric_struct("thrift_server_catalog_service_connections_rate", "The total number of connections made to this Catalog Server's catalog service over its lifetime.")
-	impala_thrift_connections_used            = create_impala_metric_struct("thrift_server_catalog_service_connections_in_use", "The number of active catalog service connections to this Catalog Server.")
-	impala_write_rate                         = create_impala_metric_struct("write_bytes_rate", "The number of bytes written to the device.")
+	impala_catalog_jvm_comitted_bytes           = create_impala_metric_struct("impala_catalogserver_jvm_heap_committed_usage_bytes", "Jvm heap Committed Usage in Bytes.")
+	impala_catalog_jvm_current_bytes            = create_impala_metric_struct("impala_catalogserver_jvm_heap_current_usage_bytes", "Jvm heap Current Usage in Bytes.")
+	impala_catalog_jvm_init_bytes               = create_impala_metric_struct("impala_catalogserver_jvm_heap_init_usage_bytes", "JVM heap Init Usage in Bytes.")
+	impala_catalog_jvm_max_bytes                = create_impala_metric_struct("impala_catalogserver_jvm_heap_max_usage_bytes", "JVM heap Max Usage in Bytes.")
+	impala_cgroup_mem_page_cache                = create_impala_metric_struct("cgroup_mem_page_cache", "Page cache usage of the role's cgroup in Bytes.")
+	impala_cgroup_mem_rss                       = create_impala_metric_struct("cgroup_mem_rss", "Resident memory of the role's cgroup in Bytes.")
+	impala_cgroup_mem_swap                      = create_impala_metric_struct("cgroup_mem_swap", "Swap usage of the role's cgroup in Bytes.")
+	impala_cgroup_read_iosrate                  = create_impala_metric_struct("cgroup_read_ios_rate", "Number of read I/O operations from all disks by the role's cgroup.")
+	impala_cgroup_read_rate                     = create_impala_metric_struct("cgroup_read_bytes_rate", "Bytes read from all disks by the role's cgroup in Bytes per second.")
+	impala_cgroup_system_rate                   = create_impala_metric_struct("cgroup_cpu_system_rate", "CPU usage of the role's cgroup in Bytes per second.")
+	impala_cgroup_user_rate                     = create_impala_metric_struct("cgroup_cpu_user_rate", "User Space CPU usage of the role's cgroup in Bytes per second.")
+	impala_cgroup_write_iosrate                 = create_impala_metric_struct("cgroup_write_ios_rate", "Number of write I/O operations to all disks by the role's cgroup.")
+	impala_cgroup_write_rate                    = create_impala_metric_struct("cgroup_write_bytes_rate", "Bytes written to all disks by the role's cgroup.")
+	impala_mem_rss                              = create_impala_metric_struct("mem_rss", "Resident memory used in Bytes")
+	impala_mem_swap                             = create_impala_metric_struct("mem_swap", "Amount of swap memory used by this role's process in Bytes")
+	impala_mem_virt                             = create_impala_metric_struct("mem_virtual", "Virtual memory used in Bytes.")
+	impala_num_queries                          = create_impala_metric_struct("impala_num_queries_registered", "Number of registered Impala queries.")
+	impala_num_sessions                         = create_impala_metric_struct("num_sessions", "Number of Impala sessions.")
+	impala_oomexit                              = create_impala_metric_struct("oom_exits_rate", "The number of times the role's backing process was killed due to an OutOfMemory error. This counter is only incremented if the Cloudera Manager \"Kill When Out of Memory\" option is enabled.")
+	impala_query_admission_wait_rate            = create_impala_metric_struct("impala_query_admission_wait_rate", "The time from submission for admission to its completion in milliseconds.")
+	impala_query_bytes_hdfs_read_rate           = create_impala_metric_struct("impala_query_hdfs_bytes_read_rate", "The total number of bytes read from HDFS by this Impala query.")
+	impala_query_bytes_hdfs_writte_rate         = create_impala_metric_struct("impala_query_hdfs_bytes_written_rate", "The total number of bytes written to HDFS by this Impala query.")
+	impala_query_bytes_streamed_rate            = create_impala_metric_struct("impala_query_bytes_streamed_rate", "The total number of bytes sent between Impala Daemons while processing this query.")
+	impala_query_cm_cpu                         = create_impala_metric_struct("impala_query_cm_cpu_milliseconds_rate", "impala.analysis.cm_cpu_milliseconds.description.")
+	impala_query_duration_rate                  = create_impala_metric_struct("impala_query_query_duration_rate", "The duration of the query in milliseconds.")
+	impala_query_ingested_rate                  = create_impala_metric_struct("queries_ingested_rate", "Impala queries ingested by the Service Monitor")
+	impala_query_mem_accrual_rate               = create_impala_metric_struct("impala_query_memory_accrual_rate", "The total accrued memory usage by the query. This is computed by multiplaying the average aggregate memory usage of the query by the query's duration.")
+	impala_query_mem_spilled_rate               = create_impala_metric_struct("impala_query_memory_spilled_rate", "Amount of memory spilled to disk in Bytes.")
+	impala_query_oomrate                        = create_impala_metric_struct("queries_oom_rate", "Number of Impala queries for which memory consumption exceeded what was allowed")
+	impala_query_rejected_rate                  = create_impala_metric_struct("queries_rejected_rate", "Number of Impala queries rejected from admission, commonly due to the queue being full or insufficient memory")
+	impala_query_spilled_rate                   = create_impala_metric_struct("queries_spilleed_rate", "Number of Impala queries that spilled to disk")
+	impala_queries_spilled_rate_alias           = create_impala_metric_struct("queries_spilled_rate", "Number of Impala queries that spilled to disk")
+	impala_query_successful_rate                = create_impala_metric_struct("queries_successful_rate", "Number of Impala queries that ran to completion successfully")
+	impala_query_thread_cpu_rate                = create_impala_metric_struct("impala_query_thread_cpu_time_rate", "The sum of the CPU time used by all threads of the query.")
+	impala_query_time_out_rate                  = create_impala_metric_struct("queries_time_out_rate", "Impala queries that timed out waiting in queue during admission in milliseconds")
+	impala_queries_timeout_rate_alias           = create_impala_metric_struct("queries_timeout_rate", "Impala queries that timed out waiting in queue during admission")
+	impala_jvm_heap_used_mb                     = create_impala_metric_struct("jvm_heap_used_mb", "Impala role JVM heap used in MB.")
+	impala_read_rate                            = create_impala_metric_struct("read_bytes_rate", "The number of bytes read from the device.")
+	impala_state_store_cache_total_clients      = create_impala_metric_struct("statestore_subscriber_statestore_client_cache_total_clients", "The total number of StateStore subscriber clients in this Impala Daemon's client cache. These clients are for communication from this role to the StateStore.")
+	impala_state_store_clients_in_use           = create_impala_metric_struct("statestore_subscriber_statestore_client_cache_clients_in_use", "The number of active StateStore subscriber clients in this Impala Daemon's client cache. These clients are for communication from this role to the StateStore.")
+	impala_state_store_heart_beat_last          = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_last", "The most recent interval between heartbeats from this Impala Daemon to the StateStore in seconds.")
+	impala_state_store_heart_beat_max           = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_max", " The maximum interval between heartbeats from this Impala Daemon to the StateStore in seconds. This is calculated over the lifetime of the Impala Daemon.")
+	impala_state_store_heart_beat_mean          = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_mean", " The average interval between heartbeats from this Impala Daemon to the StateStore in seconds. This is calculated over the lifetime of the Impala Daemon.")
+	impala_state_store_heart_beat_min           = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_min", "The minimum interval between heartbeats from this Impala Daemon to the StateStore in seconds. This is calculated over the lifetime of the Impala Daemon.")
+	impala_state_store_heart_beat_rate          = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_rate", "The total number of samples taken of the Impala Daemon's StateStore heartbeat interval in samples per second.")
+	impala_state_store_heart_beat_stddev        = create_impala_metric_struct("statestore_subscriber_heartbeat_interval_time_stddev", "The standard deviation in the interval between heartbeats from this Impala Daemon to the StateStore in seconds. This is calculated over the lifetime of the Impala Daemon.")
+	impala_state_store_last_recovery_duration   = create_impala_metric_struct("statestore_subscriber_last_recovery_duration", "The amount of time, in seconds, the StateStore subscriber took to recover the connection the last time it was lost.")
+	impala_tcmalloc_free_bytes                  = create_impala_metric_struct("tcmalloc_pageheap_free_bytes", "Number of bytes in free, mapped pages in page heap. These bytes can be used to fulfill allocation requests. They always count towards virtual memory usage, and unless the underlying memory is swapped out by the OS, they also count towards physical memory usage.")
+	impala_tcmalloc_physical_reserved_bytes     = create_impala_metric_struct("tcmalloc_physical_bytes_reserved", "Derived metric computing the amount of physical memory (in bytes) used by the process, including that actually in use and free bytes reserved by tcmalloc. Does not include the tcmalloc metadata.")
+	impala_tcmalloc_total_reserved_bytes        = create_impala_metric_struct("tcmalloc_total_bytes_reserved", "Bytes of system memory reserved by TCMalloc.")
+	impala_tcmalloc_unmapped_bytes              = create_impala_metric_struct("tcmalloc_pageheap_unmapped_bytes", "Number of bytes in free, unmapped pages in page heap. These are bytes that have been released back to the OS, possibly by one of the MallocExtension \"Release\" calls. They can be used to fulfill allocation requests, but typically incur a page fault. They always count towards virtual memory usage, and depending on the OS, typically do not count towards physical memory usage.")
+	impala_tcmalloc_used_bytes                  = create_impala_metric_struct("tcmalloc_bytes_in_use", "Number of bytes used by the application. This will not typically match the memory use reported by the OS, because it does not include TCMalloc overhead or memory fragmentation.")
+	impala_thrift_connections_rate              = create_impala_metric_struct("thrift_server_catalog_service_connections_rate", "The total number of connections made to this Catalog Server's catalog service over its lifetime.")
+	impala_thrift_connections_used              = create_impala_metric_struct("thrift_server_catalog_service_connections_in_use", "The number of active catalog service connections to this Catalog Server.")
+	impala_write_rate                           = create_impala_metric_struct("write_bytes_rate", "The number of bytes written to the device.")
+	impala_num_fragments_in_flight              = create_impala_metric_struct("impala_num_fragments_in_flight", "Number of Impala fragments currently in flight.")
+	impala_admission_local_num_queued           = create_impala_metric_struct("impala_admission_controller_local_num_queued", "Number of queued requests in the local Impala admission controller.")
+	impala_admission_local_num_admitted_running = create_impala_metric_struct("impala_admission_controller_local_num_admitted_running", "Number of locally admitted and running Impala requests.")
+	impala_admission_local_backend_mem_reserved = create_impala_metric_struct("impala_admission_controller_local_backend_mem_reserved", "Impala admission controller local backend memory reserved.")
+	impala_admission_local_backend_mem_usage    = create_impala_metric_struct("impala_admission_controller_local_backend_mem_usage", "Impala admission controller local backend memory usage.")
+	impala_admission_time_in_queue_ms_rate      = create_impala_metric_struct("impala_admission_controller_time_in_queue_ms_rate", "Impala admission controller queue time rate.")
+	impala_admission_total_admitted_rate        = create_impala_metric_struct("impala_admission_controller_total_admitted_rate", "Impala admission controller admitted requests per second.")
+	impala_admission_total_rejected_rate        = create_impala_metric_struct("impala_admission_controller_total_rejected_rate", "Impala admission controller rejected requests per second.")
+	impala_admission_total_timed_out_rate       = create_impala_metric_struct("impala_admission_controller_total_timed_out_rate", "Impala admission controller timed out requests per second.")
+	impala_admission_total_queued_rate          = create_impala_metric_struct("impala_admission_controller_total_queued_rate", "Impala admission controller queued requests per second.")
+	impala_admission_total_dequeued_rate        = create_impala_metric_struct("impala_admission_controller_total_dequeued_rate", "Impala admission controller dequeued requests per second.")
+	impala_admission_pool_max_mem_resources     = create_impala_metric_struct("impala_admission_controller_pool_max_mem_resources", "Impala admission controller pool maximum memory resources.")
+	impala_admission_pool_max_requests          = create_impala_metric_struct("impala_admission_controller_pool_max_requests", "Impala admission controller pool maximum requests.")
+	impala_admission_pool_max_queued            = create_impala_metric_struct("impala_admission_controller_pool_max_queued", "Impala admission controller pool maximum queued requests.")
 )
 var impala_query_variable_relationship = []relationa{
 	{&IMPALA_CATALOG_JVM_COMITTED_BYTES, *impala_catalog_jvm_comitted_bytes},
@@ -214,6 +242,20 @@ var impala_query_variable_relationship = []relationa{
 	{&IMPALA_THRIFT_CONNECTIONS_RATE, *impala_thrift_connections_rate},
 	{&IMPALA_THRIFT_CONNECTIONS_USED, *impala_thrift_connections_used},
 	{&IMPALA_WRITE_RATE, *impala_write_rate},
+	{&IMPALA_NUM_FRAGMENTS_IN_FLIGHT, *impala_num_fragments_in_flight},
+	{&IMPALA_ADMISSION_LOCAL_NUM_QUEUED, *impala_admission_local_num_queued},
+	{&IMPALA_ADMISSION_LOCAL_NUM_ADMITTED_RUNNING, *impala_admission_local_num_admitted_running},
+	{&IMPALA_ADMISSION_LOCAL_BACKEND_MEM_RESERVED, *impala_admission_local_backend_mem_reserved},
+	{&IMPALA_ADMISSION_LOCAL_BACKEND_MEM_USAGE, *impala_admission_local_backend_mem_usage},
+	{&IMPALA_ADMISSION_TIME_IN_QUEUE_MS_RATE, *impala_admission_time_in_queue_ms_rate},
+	{&IMPALA_ADMISSION_TOTAL_ADMITTED_RATE, *impala_admission_total_admitted_rate},
+	{&IMPALA_ADMISSION_TOTAL_REJECTED_RATE, *impala_admission_total_rejected_rate},
+	{&IMPALA_ADMISSION_TOTAL_TIMED_OUT_RATE, *impala_admission_total_timed_out_rate},
+	{&IMPALA_ADMISSION_TOTAL_QUEUED_RATE, *impala_admission_total_queued_rate},
+	{&IMPALA_ADMISSION_TOTAL_DEQUEUED_RATE, *impala_admission_total_dequeued_rate},
+	{&IMPALA_ADMISSION_POOL_MAX_MEM_RESOURCES, *impala_admission_pool_max_mem_resources},
+	{&IMPALA_ADMISSION_POOL_MAX_REQUESTS, *impala_admission_pool_max_requests},
+	{&IMPALA_ADMISSION_POOL_MAX_QUEUED, *impala_admission_pool_max_queued},
 }
 
 /* ======================================================================

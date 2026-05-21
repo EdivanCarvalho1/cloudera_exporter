@@ -32,6 +32,16 @@ var sparkSpec = serviceScraperSpec{
 			Query: serviceMetricQuery("spark_on_yarn_event_log_data_ingest_fail_counts_rate", sparkServiceTypes),
 		},
 		{
+			Name:  "spark_on_yarn_event_log_data_export_success_counts_rate",
+			Help:  "Spark event log export success rate.",
+			Query: serviceMetricQuery("spark_on_yarn_event_log_data_export_success_counts_rate", sparkServiceTypes),
+		},
+		{
+			Name:  "spark_on_yarn_event_log_data_ingest_success_counts_rate",
+			Help:  "Spark event log ingest success rate.",
+			Query: serviceMetricQuery("spark_on_yarn_event_log_data_ingest_success_counts_rate", sparkServiceTypes),
+		},
+		{
 			Name:  "spark_on_yarn_lineage_data_export_fail_counts_rate",
 			Help:  "Spark lineage data export failure rate.",
 			Query: serviceMetricQuery("spark_on_yarn_lineage_data_export_fail_counts_rate", sparkServiceTypes),
@@ -40,6 +50,16 @@ var sparkSpec = serviceScraperSpec{
 			Name:  "spark_on_yarn_lineage_data_ingest_fail_counts_rate",
 			Help:  "Spark lineage data ingest failure rate.",
 			Query: serviceMetricQuery("spark_on_yarn_lineage_data_ingest_fail_counts_rate", sparkServiceTypes),
+		},
+		{
+			Name:  "spark_on_yarn_lineage_data_export_success_counts_rate",
+			Help:  "Spark lineage data export success rate.",
+			Query: serviceMetricQuery("spark_on_yarn_lineage_data_export_success_counts_rate", sparkServiceTypes),
+		},
+		{
+			Name:  "spark_on_yarn_lineage_data_ingest_success_counts_rate",
+			Help:  "Spark lineage data ingest success rate.",
+			Query: serviceMetricQuery("spark_on_yarn_lineage_data_ingest_success_counts_rate", sparkServiceTypes),
 		},
 		{
 			Name:  "history_server_jvm_heap_used_mb",

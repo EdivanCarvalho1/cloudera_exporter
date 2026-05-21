@@ -95,6 +95,14 @@ func serviceMetricQuery(metricName string, serviceTypes []string) string {
 	return fmt.Sprintf("SELECT LAST(%s) WHERE category=SERVICE AND %s", metricName, predicate)
 }
 
+func serviceScopedMetricQuery(metricName string, serviceTypes []string) string {
+	predicate := serviceTypesPredicate(serviceTypes)
+	if predicate == "" {
+		return fmt.Sprintf("SELECT LAST(%s)", metricName)
+	}
+	return fmt.Sprintf("SELECT LAST(%s) WHERE %s", metricName, predicate)
+}
+
 func roleMetricQuery(metricName string, serviceTypes []string, roleTypes ...string) string {
 	predicates := []string{"category=ROLE"}
 	if servicePredicate := serviceTypesPredicate(serviceTypes); servicePredicate != "" {

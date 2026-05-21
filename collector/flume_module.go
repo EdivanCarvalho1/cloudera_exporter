@@ -61,6 +61,26 @@ var flumeSpec = serviceScraperSpec{
 			Query: roleMetricQuery("event_drain_success_rate", flumeServiceTypes),
 		},
 		{
+			Name:  "event_drain_attempt_rate",
+			Help:  "Flume sink event drain attempt rate.",
+			Query: roleMetricQuery("event_drain_attempt_rate", flumeServiceTypes),
+		},
+		{
+			Name:  "batch_complete_rate",
+			Help:  "Flume sink batch complete rate.",
+			Query: roleMetricQuery("batch_complete_rate", flumeServiceTypes),
+		},
+		{
+			Name:  "batch_empty_rate",
+			Help:  "Flume sink batch empty rate.",
+			Query: roleMetricQuery("batch_empty_rate", flumeServiceTypes),
+		},
+		{
+			Name:  "batch_underflow_rate",
+			Help:  "Flume sink batch underflow rate.",
+			Query: roleMetricQuery("batch_underflow_rate", flumeServiceTypes),
+		},
+		{
 			Name:  "connection_failed_rate",
 			Help:  "Flume sink connection failure rate.",
 			Query: roleMetricQuery("connection_failed_rate", flumeServiceTypes),

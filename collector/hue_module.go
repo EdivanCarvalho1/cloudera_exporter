@@ -41,6 +41,11 @@ var hueSpec = serviceScraperSpec{
 			Query: roleMetricQuery("hue_requests_response_time_avg", hueServiceTypes),
 		},
 		{
+			Name:  "hue_requests_response_time_99_percentile",
+			Help:  "Hue 99th percentile request response time.",
+			Query: roleMetricQuery("hue_requests_response_time_99_percentile", hueServiceTypes),
+		},
+		{
 			Name:  "hue_requests_response_time_max",
 			Help:  "Hue maximum request response time.",
 			Query: roleMetricQuery("hue_requests_response_time_max", hueServiceTypes),
@@ -64,6 +69,16 @@ var hueSpec = serviceScraperSpec{
 			Name:  "hue_multiprocessing_processes_total",
 			Help:  "Hue multiprocessing total processes.",
 			Query: roleMetricQuery("hue_multiprocessing_processes_total", hueServiceTypes),
+		},
+		{
+			Name:  "hue_auth_ldap_auth_time_avg",
+			Help:  "Hue LDAP authentication average time.",
+			Query: roleMetricQuery("hue_auth_ldap_auth_time_avg", hueServiceTypes),
+		},
+		{
+			Name:  "hue_auth_saml2_auth_time_avg",
+			Help:  "Hue SAML authentication average time.",
+			Query: roleMetricQuery("hue_auth_saml2_auth_time_avg", hueServiceTypes),
 		},
 	}, hueServiceTypes),
 }
