@@ -59,8 +59,8 @@ var (
 	IMPALA_MEM_RSS                            = "SELECT LAST(mem_rss) WHERE serviceType = \"IMPALA\""
 	IMPALA_MEM_SWAP                           = "SELECT LAST(mem_swap) WHERE serviceType = \"IMPALA\""
 	IMPALA_MEM_VIRT                           = "SELECT LAST(mem_virtual) WHERE serviceType = \"IMPALA\""
-	IMPALA_NUM_QUERIES                        = "SELECT LAST(num_queries) WHERE serviceType = \"IMPALA\""
-	IMPALA_NUM_SESSIONS                       = "SELECT LAST(num_sessions) WHERE serviceType = \"IMPALA\""
+	IMPALA_NUM_QUERIES                        = "SELECT LAST(impala_num_queries_registered) WHERE serviceType = \"IMPALA\""
+	IMPALA_NUM_SESSIONS                       = "SELECT LAST(num_open_hiveserver2_sessions + num_open_beeswax_sessions) WHERE serviceType = \"IMPALA\""
 	IMPALA_OOMEXIT                            = "SELECT LAST(INTEGRAL(oom_exits_rate)) WHERE serviceType = \"IMPALA\""
 	IMPALA_QUERY_ADMISSION_WAIT_RATE          = "SELECT LAST(INTEGRAL(impala_query_admission_wait_rate)) WHERE serviceType = \"IMPALA\""
 	IMPALA_QUERY_BYTES_HDFS_READ_RATE         = "SELECT LAST(INTEGRAL(impala_query_hdfs_bytes_read_rate)) WHERE serviceType = \"IMPALA\""
@@ -118,7 +118,7 @@ var (
 	impala_mem_rss                            = create_impala_metric_struct("mem_rss", "Resident memory used in Bytes")
 	impala_mem_swap                           = create_impala_metric_struct("mem_swap", "Amount of swap memory used by this role's process in Bytes")
 	impala_mem_virt                           = create_impala_metric_struct("mem_virtual", "Virtual memory used in Bytes.")
-	impala_num_queries                        = create_impala_metric_struct("num_queries", "Number of Impala queries.")
+	impala_num_queries                        = create_impala_metric_struct("impala_num_queries_registered", "Number of registered Impala queries.")
 	impala_num_sessions                       = create_impala_metric_struct("num_sessions", "Number of Impala sessions.")
 	impala_oomexit                            = create_impala_metric_struct("oom_exits_rate", "The number of times the role's backing process was killed due to an OutOfMemory error. This counter is only incremented if the Cloudera Manager \"Kill When Out of Memory\" option is enabled.")
 	impala_query_admission_wait_rate          = create_impala_metric_struct("impala_query_admission_wait_rate", "The time from submission for admission to its completion in milliseconds.")

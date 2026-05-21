@@ -17,44 +17,44 @@ var flinkSpec = serviceScraperSpec{
 	ServiceTypes: flinkServiceTypes,
 	Metrics: appendCommonRoleMetrics([]serviceTimeseriesMetric{
 		{
-			Name:  "jobs_running",
-			Help:  "Flink running jobs.",
-			Query: serviceMetricQuery("jobs_running", flinkServiceTypes),
-		},
-		{
-			Name:  "jobs_failed",
-			Help:  "Flink failed jobs.",
-			Query: serviceMetricQuery("jobs_failed", flinkServiceTypes),
-		},
-		{
-			Name:  "jobs_finished",
-			Help:  "Flink finished jobs.",
-			Query: serviceMetricQuery("jobs_finished", flinkServiceTypes),
-		},
-		{
-			Name:  "task_slots_total",
-			Help:  "Flink total task slots.",
-			Query: serviceMetricQuery("task_slots_total", flinkServiceTypes),
-		},
-		{
-			Name:  "task_slots_available",
-			Help:  "Flink available task slots.",
-			Query: serviceMetricQuery("task_slots_available", flinkServiceTypes),
-		},
-		{
-			Name:  "checkpoints_completed",
-			Help:  "Flink completed checkpoints.",
-			Query: serviceMetricQuery("checkpoints_completed", flinkServiceTypes),
-		},
-		{
-			Name:  "checkpoints_failed",
-			Help:  "Flink failed checkpoints.",
-			Query: serviceMetricQuery("checkpoints_failed", flinkServiceTypes),
-		},
-		{
 			Name:  "jvm_heap_used_mb",
 			Help:  "Flink role JVM heap used in MB.",
 			Query: roleMetricQuery("jvm_heap_used_mb", flinkServiceTypes, flinkRoleTypes...),
+		},
+		{
+			Name:  "jvm_total_threads",
+			Help:  "Flink role JVM thread count.",
+			Query: roleMetricQuery("jvm_total_threads", flinkServiceTypes, flinkRoleTypes...),
+		},
+		{
+			Name:  "jvm_gc_rate",
+			Help:  "Flink role JVM garbage collections per second.",
+			Query: roleMetricQuery("jvm_gc_rate", flinkServiceTypes, flinkRoleTypes...),
+		},
+		{
+			Name:  "fd_open",
+			Help:  "Flink role open file descriptors.",
+			Query: roleMetricQuery("fd_open", flinkServiceTypes, flinkRoleTypes...),
+		},
+		{
+			Name:  "fd_max",
+			Help:  "Flink role maximum file descriptors.",
+			Query: roleMetricQuery("fd_max", flinkServiceTypes, flinkRoleTypes...),
+		},
+		{
+			Name:  "uptime",
+			Help:  "Flink role uptime in seconds.",
+			Query: roleMetricQuery("uptime", flinkServiceTypes, flinkRoleTypes...),
+		},
+		{
+			Name:  "unexpected_exits_rate",
+			Help:  "Flink role unexpected exits per second.",
+			Query: roleMetricQuery("unexpected_exits_rate", flinkServiceTypes, flinkRoleTypes...),
+		},
+		{
+			Name:  "oom_exits_rate",
+			Help:  "Flink role out-of-memory exits per second.",
+			Query: roleMetricQuery("oom_exits_rate", flinkServiceTypes, flinkRoleTypes...),
 		},
 	}, flinkServiceTypes, flinkRoleTypes...),
 }

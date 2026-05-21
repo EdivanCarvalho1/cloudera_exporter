@@ -40,6 +40,14 @@ yarn_module = true
 zookeeper_module = true
 nifi_module = true
 flink_module = true
+oozie_module = true
+ozone_module = true
+solr_module = true
+ranger_module = true
+atlas_module = true
+hue_module = true
+knox_module = true
+flume_module = true
 
 [system]
 num_procs = 2
@@ -80,6 +88,14 @@ log_level = 0
 		"zookeeper",
 		"nifi",
 		"flink",
+		"oozie",
+		"ozone",
+		"solr",
+		"ranger",
+		"atlas",
+		"hue",
+		"knox",
+		"flume",
 	}
 	for _, name := range expected {
 		if !enabled[name] {

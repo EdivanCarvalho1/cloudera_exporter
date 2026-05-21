@@ -47,7 +47,7 @@ const (
 	HDFS_BLOCK_EXCESS                = "SELECT LAST(excess_blocks) WHERE category=SERVICE"
 	HDFS_BLOCK_MISSING               = "SELECT LAST(missing_blocks) WHERE category=SERVICE"
 	HDFS_BLOCK_UNDER_REPLICATED      = "SELECT LAST(under_replicated_blocks) WHERE category=SERVICE"
-	HDFS_CORRUPT_BLOCKS              = "SELECT LAST(corrupt_blocks) WHERE category=SERVICE AND serviceType=HDFS"
+	HDFS_CORRUPT_BLOCKS              = "SELECT LAST(blocks_with_corrupt_replicas) WHERE category=SERVICE AND serviceType=HDFS"
 	HDFS_BLOCK_WRITE                 = "SELECT LAST(INTEGRAL(total_blocks_written_rate_across_datanodes)) WHERE entityName=hdfs"
 	HDFS_BLOCK_READ                  = "SELECT LAST(INTEGRAL(total_blocks_read_rate_across_datanodes)) WHERE entityName=hdfs"
 	HDFS_FILES_TOTAL                 = "SELECT LAST(files_total) WHERE category=SERVICE"

@@ -27,14 +27,34 @@ var hbaseSpec = serviceScraperSpec{
 			Query: rateServiceMetricQuery("write_requests_rate", hbaseServiceTypes),
 		},
 		{
+			Name:  "requests_rate",
+			Help:  "HBase requests per second.",
+			Query: roleMetricQuery("requests_rate", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
 			Name:  "region_count",
 			Help:  "HBase region count across RegionServers.",
 			Query: serviceMetricQuery("regions", hbaseServiceTypes),
 		},
 		{
-			Name:  "store_file_count",
+			Name:  "stores",
+			Help:  "HBase store count.",
+			Query: roleMetricQuery("stores", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
+			Name:  "storefiles",
 			Help:  "HBase store file count.",
-			Query: roleMetricQuery("store_file_count", hbaseServiceTypes, "REGIONSERVER"),
+			Query: roleMetricQuery("storefiles", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
+			Name:  "block_cache_hit_ratio",
+			Help:  "HBase block cache hit ratio.",
+			Query: roleMetricQuery("block_cache_hit_ratio", hbaseServiceTypes, "REGIONSERVER"),
+		},
+		{
+			Name:  "block_cache_evicted_rate",
+			Help:  "HBase block cache eviction rate.",
+			Query: roleMetricQuery("block_cache_evicted_rate", hbaseServiceTypes, "REGIONSERVER"),
 		},
 		{
 			Name:  "memstore_size",
@@ -52,24 +72,14 @@ var hbaseSpec = serviceScraperSpec{
 			Query: roleMetricQuery("flush_queue_size", hbaseServiceTypes, "REGIONSERVER"),
 		},
 		{
-			Name:  "read_latency",
-			Help:  "HBase read latency.",
-			Query: roleMetricQuery("read_latency", hbaseServiceTypes, "REGIONSERVER"),
-		},
-		{
-			Name:  "write_latency",
-			Help:  "HBase write latency.",
-			Query: roleMetricQuery("write_latency", hbaseServiceTypes, "REGIONSERVER"),
-		},
-		{
 			Name:  "jvm_heap_used_mb",
 			Help:  "HBase role JVM heap used in MB.",
 			Query: roleMetricQuery("jvm_heap_used_mb", hbaseServiceTypes, hbaseRoleTypes...),
 		},
 		{
-			Name:  "jvm_threads",
+			Name:  "jvm_total_threads",
 			Help:  "HBase role JVM thread count.",
-			Query: roleMetricQuery("jvm_threads", hbaseServiceTypes, hbaseRoleTypes...),
+			Query: roleMetricQuery("jvm_total_threads", hbaseServiceTypes, hbaseRoleTypes...),
 		},
 	}, hbaseServiceTypes, hbaseRoleTypes...),
 }
